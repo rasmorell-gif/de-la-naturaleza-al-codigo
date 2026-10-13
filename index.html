@@ -138,7 +138,7 @@
   details.group > summary::before { content: ""; width: 7px; height: 7px; border-right: 1.8px solid var(--faint); border-bottom: 1.8px solid var(--faint); transform: rotate(-45deg); transition: transform .15s; flex: 0 0 auto; }
   details.group[open] > summary::before { transform: rotate(45deg); }
   .g-name { font-weight: 600; font-size: 14px; }
-  .g-count { font-size: 12.5px; color: var(--muted); flex: 1; }
+  .g-count { font-size: 12.5px; color: var(--muted); flex: 1; white-space: nowrap; }
   .g-actions button { background: none; border: none; color: var(--accent); font-size: 12.5px; padding: 2px 4px; }
   .food-row { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 10px; align-items: center; padding: 8px 14px; border-top: 1px solid var(--border); font-size: 13.5px; }
   .food-row.off .f-main, .food-row.off .chips { opacity: 0.45; }
@@ -503,7 +503,15 @@
   #gaPop { width: 100%; height: auto; display: block; }
   .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; vertical-align: -1px; margin-right: 2px; }
   .dot.keep { background: var(--accent); } .dot.drop { background: var(--dot-drop); }
-  .ga-days { margin-top: 28px; max-width: 460px; }
+  .ga-days { margin-top: 28px; }
+  .gd-head { display: flex; align-items: center; justify-content: space-between; gap: 8px 16px; flex-wrap: wrap; margin-bottom: 12px; }
+  .gd-head .field { margin: 0; }
+  .gd-pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; background: var(--soft); color: var(--muted); font-size: 14px; white-space: nowrap; }
+  .gd-pill.ok { background: var(--leaf-soft); color: var(--text); }
+  .gd-pill:empty { display: none; }
+  .ga-days .pday { grid-template-columns: 40px minmax(0, 1fr) 104px; margin-bottom: 6px; }
+  #gaInRange { margin-top: 10px; }
+  #gaInRange p { margin: 0 0 6px; }
   .ga-days .field { margin: 0 0 10px; }
   .ga-days .pday { font-size: 13px; margin-bottom: 4px; }
   .meals li.meal-head { display: block; border-bottom: none; padding: 10px 0 2px; font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--accent); }
@@ -531,7 +539,7 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%2374716b' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat; background-position: right 14px center; background-size: 12px 8px;
   }
-  .f-ctrl select { padding-right: 28px; background-position: right 9px center; background-size: 10px 7px; }
+  .f-ctrl select { padding: 3px 22px 3px 6px; background-position: right 9px center; background-size: 8px 5px; field-sizing: content; min-width: 97px; } /* ancho justo para "2 porciones"; solo "1½ porciones" queda un poco más ancho */
 
   /* ===== Cabeza de girasol ===== */
   html { background: var(--frame); }
@@ -606,7 +614,10 @@
   .best-line { max-width: 360px; margin: 6px auto 4px; }
   .bloom-keys { list-style: none; padding: 0; margin: 0 auto 8px; max-width: 30em; display: grid; gap: 4px; font-size: 14.5px; color: var(--frame-text); }
   .bloom-keys b { color: var(--gold); font-weight: 600; }
-  #gaLineEnds { white-space: nowrap; color: var(--frame-text); }
+  #gaLineEnds { white-space: nowrap; color: var(--frame-text); text-align: right; }
+  #gaLineEnds strong { font-weight: 600; }
+  #gaLineEnds .gle-g, .gle-key { display: block; color: var(--frame-muted); font-size: 12.5px; }
+  .gle-key { display: inline; }
   .bloom-note { font-size: 13px; color: var(--frame-muted); max-width: 34em; margin: 0 auto; }
   .ga-pop .hint { text-align: left; }
   #gaLine { display: block; width: 100%; height: auto; }
@@ -627,6 +638,8 @@
   #intro .intro-nav { background: var(--card); margin-top: 0; padding: 24px 26px 28px; border-radius: 0 0 22px 22px; }
   .cover-count { font-size: 15px; color: var(--muted) !important; margin: 0 auto 14px !important; font-variant-numeric: tabular-nums; }
   .cover-count strong { font-family: Gloock, Georgia, serif; font-weight: 400; font-size: 21px; color: var(--text); margin-right: 4px; }
+  .cover .cover-lede { color: var(--frame-muted); font-size: 16.5px; line-height: 1.5; max-width: 36em; margin: 12px auto 10px; text-align: center; text-wrap: balance; }
+  #intro .cover-body .cover-meta { font-size: 14px; color: var(--muted); text-align: center; margin: 0 auto 6px; }
   .cover-cta { width: min(100%, 360px); padding: 14px 20px !important; font-size: 16px !important; margin-bottom: 18px; }
   .scene .bloom-cap { text-align: center; margin: 0 auto 6px; }
   #intro .scene { margin: 0; }
@@ -643,6 +656,7 @@
   .step-nav .btn, .intro-nav .btn { white-space: nowrap; }
   .cover .cover-title { font-family: Gloock, Georgia, serif; font-weight: 400; font-size: clamp(31px, 5vw, 40px); line-height: 1.1; color: var(--frame-text); max-width: 620px; margin: 0 auto 6px; text-wrap: balance; }
   .scene .bloom-cap { font-size: 14px; color: var(--frame-muted); margin: 0 auto 6px; text-align: center; }
+  .cover .bloom-cap { max-width: 30em; text-wrap: balance; line-height: 1.5; }
   #intro .cover { padding: 0; }
   .intro-skip { z-index: 2; background: var(--card); border-radius: 999px; padding: 5px 12px !important; text-decoration: none !important; }
   .sample { display: flex; align-items: center; justify-content: space-between; gap: 10px 16px; flex-wrap: wrap; background: var(--gold-soft); border-radius: 14px; padding: 14px 16px; margin: 24px 0 4px; }
@@ -729,20 +743,45 @@
   }
   /* Celular: encabezado compacto después del paso 1, navegación de la intro siempre a la vista, aviso más corto */
   @media (max-width: 640px) {
-    body:not([data-step="1"]) .subtitle { display: none; }
-    body:not([data-step="1"]) .top-head h1 { font-size: 23px; margin-bottom: 14px; }
+    .top-head h1 { font-size: 26px; margin-bottom: 14px; }
     #intro .intro-nav { position: sticky; bottom: 0; z-index: 5; box-shadow: 0 -10px 18px -12px rgba(13,20,34,.35); }
     #intro:has(.scene.cover.on) .intro-nav { position: static; box-shadow: none; } /* la portada ya tiene su botón "Descúbrelo" */
     #step1 .exp-note { font-size: 13.5px; padding: 10px 12px; margin-bottom: 18px; }
     .subtitle { font-size: 15px; margin-bottom: 20px; }
   }
-  .talk { border-top: 1px solid var(--border); margin-top: 32px; padding-top: 26px; }
+  .talk { background: var(--salvia); border-radius: 18px; margin-top: 32px; padding: 26px 28px 28px; } /* cierre: el mismo fondo salvia de "Lo que acabas de ver" */
   .talk h3 { font-family: Gloock, Georgia, serif; font-weight: 400; font-size: 23px; margin: 0 0 8px; }
-  .talk p { margin: 0 0 16px; max-width: 36em; color: var(--muted); }
+  .talk p { margin: 0 0 18px; max-width: 36em; color: var(--text); }
   .talk .btn { display: inline-block; text-decoration: none; }
-  @media (max-width: 640px) { .talk .btn { display: block; text-align: center; } }
+  .talk .btn { padding: 12px 22px; font-size: 15px; }
+  @media (max-width: 640px) { .talk { padding: 22px 18px; } .talk .btn { display: block; text-align: center; } }
   .footer-note.credit { margin-top: 8px; }
+  .mast .lang-btn { margin-left: 0; }
+  .mast .sh { display: none; }
+  @media (max-width: 640px) { .mast .lang-btn { padding: 7px 11px; } .mast .lg { display: none; } .mast .sh { display: inline; } }
   .footer-note.credit a { color: inherit; }
+  /* Escena 3: los tres pasos de la naturaleza son el centro de la lección */
+  .h2-gold { color: var(--gold-ink); font-style: normal; }
+  .steps3 { max-width: 760px !important; gap: 14px !important; }
+  .steps3 > div { padding: 20px 20px 18px !important; border-radius: 14px !important; gap: 10px !important; }
+  .steps3 .seeds { display: block; width: 78px; height: 18px; color: var(--gold-ink); margin-bottom: 4px; }
+  .steps3 .seeds .on { fill: currentColor; }
+  .steps3 .seeds .off { fill: none; stroke: var(--seed-ring); stroke-width: 2; }
+  .steps3 .seeds .ring { fill: none; stroke: currentColor; stroke-width: 2; }
+  .steps3 .seeds .ln { fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .steps3 b { font-family: Gloock, Georgia, serif; font-weight: 400; font-size: 23px !important; line-height: 1.15; color: var(--text); margin: 0 0 4px !important; }
+  .steps3 span.nat, .steps3 span:not(.n) { font-size: 15px !important; line-height: 1.45; }
+  .steps3 i { display: block; font-style: normal; font-size: 12.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--faint); margin-bottom: 2px; }
+  @media (max-width: 640px) { .steps3 > div { padding: 16px 16px 14px !important; } .steps3 .seeds { width: 70px; height: 16px; } .steps3 b { font-size: 21px !important; } }
+  /* El paso de mirar a hacer: dorado de la marca, el único botón de este color */
+  .btn.primary.go { background: var(--gold); color: #0d1422; border-color: transparent; }
+  .btn.primary.go:hover { background: var(--gold); filter: brightness(1.08); }
+  /* Un título por paso: el título grande de arriba manda; el de la tarjeta se quita para no repetir */
+  body:not([data-step="1"]) .subtitle { display: none; }
+  body:not([data-step="1"]) .top-head h1 { margin-bottom: 24px; }
+  .step-head h2, #gaTitle, #results .res-head h2 { display: none; }
+  .step-head .hint { margin-top: 4px; }
+  @media (max-width: 640px) { #resultsCard > .step-nav .right { flex-direction: column; width: 100%; } #resultsCard > .step-nav .right .btn { width: 100%; } }
   @media print { .mast, .sample, .talk, .swipe-hint { display: none !important; } body { color: #1d2230; } .card { background: var(--card); } }
 </style>
 </head>
@@ -751,11 +790,12 @@
 <header class="mast">
   <a class="mast-brand" href="https://designingspring.substack.com/" target="_blank" rel="noopener"><svg width="26" height="26" viewBox="-160 -160 320 320" aria-hidden="true"><path transform="translate(-16.1 14.8) rotate(192.5)" d="M-13.03 0 Q 0 -13.03 13.03 0 Q 0 13.03 -13.03 0 Z" fill="#c4de88"/><path transform="translate(2.7 -30.8) rotate(330.0)" d="M-13.77 0 Q 0 -13.77 13.77 0 Q 0 13.77 -13.77 0 Z" fill="#b4d575"/><path transform="translate(23.0 30.1) rotate(467.5)" d="M-14.33 0 Q 0 -14.33 14.33 0 Q 0 14.33 -14.33 0 Z" fill="#a4cb63"/><path transform="translate(-43.1 -7.6) rotate(605.0)" d="M-14.81 0 Q 0 -14.81 14.81 0 Q 0 14.81 -14.81 0 Z" fill="#95c055"/><path transform="translate(41.3 -26.2) rotate(742.5)" d="M-15.23 0 Q 0 -15.23 15.23 0 Q 0 15.23 -15.23 0 Z" fill="#87b44b"/><path transform="translate(-13.9 51.7) rotate(880.0)" d="M-15.61 0 Q 0 -15.61 15.61 0 Q 0 15.61 -15.61 0 Z" fill="#78a842"/><path transform="translate(-26.7 -51.3) rotate(1017.6)" d="M-15.96 0 Q 0 -15.96 15.96 0 Q 0 15.96 -15.96 0 Z" fill="#6a9c38"/><path transform="translate(58.1 21.2) rotate(1155.1)" d="M-16.28 0 Q 0 -16.28 16.28 0 Q 0 16.28 -16.28 0 Z" fill="#d4e89a"/><path transform="translate(-60.6 25.0) rotate(1292.6)" d="M-16.59 0 Q 0 -16.59 16.59 0 Q 0 16.59 -16.59 0 Z" fill="#c4de88"/><path transform="translate(29.3 -62.6) rotate(1430.1)" d="M-16.88 0 Q 0 -16.88 16.88 0 Q 0 16.88 -16.88 0 Z" fill="#b4d575"/><path transform="translate(21.7 69.2) rotate(1567.6)" d="M-17.15 0 Q 0 -17.15 17.15 0 Q 0 17.15 -17.15 0 Z" fill="#a4cb63"/><path transform="translate(-65.5 -38.0) rotate(1705.1)" d="M-17.41 0 Q 0 -17.41 17.41 0 Q 0 17.41 -17.41 0 Z" fill="#95c055"/><path transform="translate(77.0 -16.9) rotate(1842.6)" d="M-17.66 0 Q 0 -17.66 17.66 0 Q 0 17.66 -17.66 0 Z" fill="#87b44b"/><path transform="translate(-47.1 66.9) rotate(1980.1)" d="M-17.91 0 Q 0 -17.91 17.91 0 Q 0 17.91 -17.91 0 Z" fill="#78a842"/><path transform="translate(-10.9 -84.0) rotate(2117.6)" d="M-18.14 0 Q 0 -18.14 18.14 0 Q 0 18.14 -18.14 0 Z" fill="#6a9c38"/><path transform="translate(66.9 56.4) rotate(2255.1)" d="M-18.37 0 Q 0 -18.37 18.37 0 Q 0 18.37 -18.37 0 Z" fill="#d4e89a"/><path transform="translate(-90.1 3.7) rotate(2392.6)" d="M-18.58 0 Q 0 -18.58 18.58 0 Q 0 18.58 -18.58 0 Z" fill="#c4de88"/><path transform="translate(65.8 -65.4) rotate(2530.1)" d="M-18.80 0 Q 0 -18.80 18.80 0 Q 0 18.80 -18.80 0 Z" fill="#b4d575"/><path transform="translate(-4.4 95.2) rotate(2667.6)" d="M-19.00 0 Q 0 -19.00 19.00 0 Q 0 19.00 -19.00 0 Z" fill="#a4cb63"/><path transform="translate(-62.6 -75.1) rotate(2805.2)" d="M-19.20 0 Q 0 -19.20 19.20 0 Q 0 19.20 -19.20 0 Z" fill="#95c055"/><path transform="translate(99.3 13.4) rotate(2942.7)" d="M-19.40 0 Q 0 -19.40 19.40 0 Q 0 19.40 -19.40 0 Z" fill="#87b44b"/><path transform="translate(-84.2 58.6) rotate(3080.2)" d="M-19.59 0 Q 0 -19.59 19.59 0 Q 0 19.59 -19.59 0 Z" fill="#78a842"/><path transform="translate(23.0 -102.3) rotate(3217.7)" d="M-19.78 0 Q 0 -19.78 19.78 0 Q 0 19.78 -19.78 0 Z" fill="#6a9c38"/><path transform="translate(53.3 92.9) rotate(3355.2)" d="M-19.96 0 Q 0 -19.96 19.96 0 Q 0 19.96 -19.96 0 Z" fill="#d4e89a"/><circle cx="-104.1" cy="-33.2" r="14.10" fill="#e3a72f"/><circle cx="101.2" cy="-46.8" r="14.22" fill="#e3a72f"/><circle cx="-43.9" cy="104.8" r="14.34" fill="#e3a72f"/><circle cx="-39.2" cy="-108.9" r="14.46" fill="#e3a72f"/><circle cx="104.2" cy="54.8" r="14.58" fill="#e3a72f"/><circle cx="-115.8" cy="30.5" r="14.69" fill="#e3a72f"/><circle cx="65.8" cy="-102.4" r="14.81" fill="#e3a72f"/><circle cx="20.9" cy="121.9" r="14.92" fill="#e3a72f"/><circle cx="-99.3" cy="-76.9" r="15.03" fill="#e3a72f"/><circle cx="127.1" cy="-10.5" r="15.14" fill="#e3a72f"/><circle cx="-87.8" cy="95.0" r="15.24" fill="#e3a72f"/><circle cx="0.6" cy="-131.2" r="15.35" fill="#e3a72f"/><circle cx="89.4" cy="98.5" r="15.45" fill="#e3a72f"/><circle cx="-134.2" cy="-12.4" r="15.55" fill="#e3a72f"/><circle cx="108.8" cy="-82.5" r="15.65" fill="#e3a72f"/><circle cx="-24.7" cy="136.0" r="15.75" fill="#e3a72f"/></svg>Designing Spring</a>
   <span class="mast-series">De la naturaleza al código</span>
-  <button class="mast-btn" id="introBtn" onclick="startIntro()">Ver la introducción</button>
-  <button class="mast-btn" id="skipBtn" onclick="endIntro()">Saltar introducción</button>
+  <button class="mast-btn" id="introBtn" onclick="startIntro()" aria-label="Ver la introducción"><span class="lg">Ver la introducción</span><span class="sh">Intro</span></button>
+  <button class="mast-btn" id="skipBtn" onclick="endIntro()" aria-label="Saltar introducción"><span class="lg">Saltar introducción</span><span class="sh">Saltar</span></button>
+  <button class="mast-btn lang-btn" id="langBtn" onclick="toggleLang()" data-no-i18n lang="en" aria-label="Read in English"><span class="lg">English</span><span class="sh">EN</span></button>
 </header>
 <div class="top-head">
-  <h1>Mira cómo <em>evoluciona</em> tu semana de comidas</h1>
+  <h1 id="stepTitle">¿Cuánto necesita tu <em>cuerpo</em>?</h1>
 </div>
 <p class="subtitle">Te armamos 7 días de comidas que se acercan a tu meta de proteína, grasa y carbohidratos, con los alimentos que tú elijas.</p>
 
@@ -763,15 +803,13 @@
   <div class="scene on cover" data-scene="0">
     <div class="bloom">
       <h2 class="cover-title">¿Qué tiene que ver la <em>evolución</em> con tu menú de la semana?</h2>
-      <svg id="introBloom" viewBox="0 0 300 300" role="img" aria-label="Una flor de semillas: cada semilla es una semana probada; las de afuera, más nuevas, son mejores"></svg>
-      <div class="bloom-key"><span class="k-keep">se queda y tiene hijos</span><span class="k-drop">se descarta</span></div>
-      <p class="bloom-cap">Una búsqueda de ejemplo: cada semilla es una semana probada.</p>
+      <p class="cover-lede">Hay billones de formas de armar tu semana de comidas. Nadie puede probarlas todas, pero la naturaleza encontró un atajo hace millones de años.</p>
+      <svg id="introBloom" viewBox="0 0 300 300" role="img" aria-label="Una flor de puntos que crece del centro hacia afuera: cada punto es una semana probada; las doradas se quedan y las vacías se descartan"></svg>
+      <p class="bloom-cap">Cada punto es una semana que probamos. Empieza en el centro y crece hacia afuera: las doradas son buenas y se quedan, las vacías no sirven y se descartan.</p>
     </div>
     <div class="cover-body">
-      <p class="cover-count" id="introCount" aria-live="off"></p>
       <button class="btn primary cover-cta" onclick="scene(1)">Descúbrelo →</button>
-      <p>Entre billones de menús posibles, hay uno que cumple tus metas de proteína, grasa y carbohidratos, te da variedad y respeta tus gustos. Para encontrarlo vamos a usar un truco que la naturaleza inventó hace millones de años.</p>
-      <p class="edu">Proyecto educativo para mostrar cómo funciona un algoritmo genético. No es una herramienta de nutrición.</p>
+      <p class="cover-meta">Un experimento interactivo · unos 5 minutos</p>
     </div>
   </div>
   <div class="scene" data-scene="1">
@@ -800,17 +838,17 @@
       <div><b>Variedad</b><span>Que no comas lo mismo todos los días</span></div>
       <div><b>Tus gustos</b><span>Solo comidas que te gustan, sin lactosa si lo pides</span></div>
     </div>
-    <p style="margin-top:20px;">Cada día eliges uno de los 60 menús, y al día siguiente vuelves a elegir entre los mismos. Para toda la semana:</p>
+    <p style="margin-top:20px;">Cada día puedes elegir cualquiera de esos 60 menús: repetir el de ayer o cambiarlo. Una semana es una combinación de 7 elecciones, así que las combinaciones posibles son:</p>
     <div class="mult" id="mult2"></div>
-    <p class="big-sub">semanas posibles, y tienes que buscar o combinar entre ellas las que mejor se adapten a ti</p>
+    <p class="big-sub">combinaciones, y cada una es una semana distinta. Entre todas tienes que encontrar la que mejor se adapte a ti.</p>
     <p class="note" id="note3"></p>
   </div>
   <div class="scene" data-scene="3">
-    <h2>Nadie puede revisar todos los menús posibles.<span class="h2-hi">La naturaleza tampoco lo hace. Su truco tiene tres pasos:</span></h2>
+    <h2>Ni la naturaleza revisa todas las opciones: usa un truco de <em class="h2-gold">tres pasos</em>.</h2>
     <div class="goals steps3">
-      <div><b>Elegir a los mejores</b><span class="nat"><i>Naturaleza:</i> sobreviven los mejor adaptados.</span><span><i>Tu menú:</i> se quedan los que mejor cumplen tus metas.</span></div>
-      <div><b>Mezclar</b><span class="nat"><i>Naturaleza:</i> los hijos se parecen a mamá y a papá.</span><span><i>Tu menú:</i> se juntan días de dos menús buenos.</span></div>
-      <div><b>Algo nuevo</b><span class="nat"><i>Naturaleza:</i> a veces aparece algo distinto.</span><span><i>Tu menú:</i> se cambia una comida de sorpresa.</span></div>
+      <div><svg class="seeds" viewBox="0 0 120 28" aria-hidden="true"><circle cx="12" cy="14" r="8" class="on"/><circle cx="36" cy="14" r="7" class="off"/><circle cx="60" cy="14" r="8" class="on"/><circle cx="84" cy="14" r="7" class="off"/><circle cx="108" cy="14" r="8" class="on"/></svg><b>Elegir a los mejores</b><span class="nat"><i>Naturaleza:</i> sobreviven los mejor adaptados.</span><span><i>Tu menú:</i> se quedan los que mejor cumplen tus metas.</span></div>
+      <div><svg class="seeds" viewBox="0 0 120 28" aria-hidden="true"><circle cx="12" cy="14" r="8" class="on"/><path d="M28 14h8M32 10v8" class="ln"/><circle cx="52" cy="14" r="7" class="ring"/><path d="M70 14h18M83 9l5 5-5 5" class="ln"/><path d="M108 6a8 8 0 0 0 0 16z" class="on"/><circle cx="108" cy="14" r="7" class="ring"/></svg><b>Mezclar</b><span class="nat"><i>Naturaleza:</i> los hijos se parecen a mamá y a papá.</span><span><i>Tu menú:</i> se juntan días de dos menús buenos.</span></div>
+      <div><svg class="seeds" viewBox="0 0 120 28" aria-hidden="true"><circle cx="12" cy="14" r="8" class="on"/><circle cx="36" cy="14" r="8" class="on"/><circle cx="60" cy="14" r="8" class="on"/><path d="M96 2c1.6 7 3 8.4 10 10-7 1.6-8.4 3-10 10-1.6-7-3-8.4-10-10 7-1.6 8.4-3 10-10z" class="on"/></svg><b>Algo nuevo</b><span class="nat"><i>Naturaleza:</i> a veces aparece algo distinto.</span><span><i>Tu menú:</i> se cambia una comida de sorpresa.</span></div>
     </div>
     <p>Así funciona la <strong>evolución</strong>. En 1975, <strong>John Holland</strong>, profesor de la Universidad de Michigan, copió este truco para resolver problemas con computadoras y lo llamó <mark class="ga-term">algoritmo genético</mark>. Repite los tres pasos muchas veces: en cada vuelta, los menús se parecen más a lo que buscas.</p>
     <details class="more real-life">
@@ -969,8 +1007,8 @@
   <div id="foodLists"></div>
   <p class="hint" style="margin-top:12px;"><strong>¿De dónde salen estos alimentos?</strong> Es una lista de ejemplo con alimentos comunes en muchos países, armada para este experimento. Si un alimento tiene otro nombre en otros lugares, lo ponemos entre paréntesis. Los valores de proteína, grasa y carbohidratos son aproximados (tablas generales y recetas caseras típicas): sirven para mostrar cómo trabaja el algoritmo, no como guía de nutrición.</p>
   <details class="more">
-    <summary>¿Qué significan "Máx" y "No partir"?</summary>
-    <p class="hint">Cada porción que ves es la base. El plan puede servir media porción, 1×, 1.5× o 2× de ella para acercarse a tu meta. <strong>Máx</strong> es lo más que puede servir de ese alimento: súbelo en lo que sí comerías en más cantidad (arroz, pollo…). <strong>No partir</strong> evita la media porción en lo que no tiene sentido partir (un huevo duro, una lata, un muffin).</p>
+    <summary>¿Cómo funcionan las porciones?</summary>
+    <p class="hint">Cada porción que ves es la base. Para acercarse a tu meta, el plan puede servir media porción, 1, 1½ o 2 porciones. La <strong>porción</strong> que eliges en cada alimento es lo más que puede servir de él: súbela en lo que sí comerías en más cantidad (arroz, pollo…). Lo que no tiene sentido partir (un huevo duro, una lata, un muffin) siempre se sirve entero.</p>
   </details>
   </details>
   <p class="hint" style="margin-top:18px;">Tus cambios se guardan en este navegador.</p>
@@ -1022,7 +1060,7 @@
     </div>
   </details>
   <div class="step-nav"><button class="btn secondary" onclick="go(2)">← Atrás</button>
-    <div class="right"><button class="btn primary" onclick="go(4)">Armar mi semana →</button></div></div>
+    <div class="right"><button class="btn primary" onclick="go(4)">Armar tu semana →</button></div></div>
 </section>
 
 <section class="card screen hidden-screen" id="gaCard" data-step="4">
@@ -1035,13 +1073,15 @@
     <p class="ga-lead">Cada vuelta, la semana mejora</p>
     <svg id="gaPop" viewBox="0 0 300 300" role="img" aria-label="Una flor de semanas: cada semilla es una semana probada; la flor crece hacia afuera vuelta tras vuelta"></svg>
     <p class="bloom-count" id="gaPopCount"></p>
-    <figure class="best-line"><svg id="gaLine" viewBox="0 0 300 64" role="img" aria-label="Gramos que la mejor semana se sale de tus rangos, vuelta a vuelta"></svg>
-      <figcaption><span>Gramos fuera de tus rangos, vuelta a vuelta</span><span id="gaLineEnds"></span></figcaption></figure>
+    <figure class="best-line"><svg id="gaLine" viewBox="0 0 300 64" role="img" aria-label="Qué tan cerca está la mejor semana de tus rangos, vuelta a vuelta; la línea punteada de arriba es estar dentro"></svg>
+      <figcaption><span>Qué tan cerca está de tus rangos, vuelta a vuelta <span class="gle-key">(arriba = dentro)</span></span><span id="gaLineEnds"></span></figcaption></figure>
     <div class="bloom-key"><span class="k-keep">se queda y tiene hijos</span><span class="k-drop">se descarta</span></div>
     <p class="hint" id="gaPopHint"></p>
   </div>
   <div class="ga-days">
-    <p class="field">¿Cada día está dentro de tus rangos?</p><div id="gaDays"></div><p class="hint" id="gaInRange"></p>
+    <div class="gd-head"><p class="field">¿Cada día está dentro de tus rangos?</p><span class="gd-pill" id="gaDaysStat"></span></div>
+    <div id="gaDays"></div>
+    <div class="hint" id="gaInRange"></div>
   </div>
   <section class="ga-versus">
     <h3>¿Y si eligiéramos semanas al azar?</h3>
@@ -1074,10 +1114,10 @@
   </details>
   <div class="step-nav demo-nav"><button class="btn secondary" onclick="startIntro()">← Ver la introducción</button>
     <div class="right"><button class="btn secondary" id="demoAgain" onclick="dirty = true; rerun()">Ver crecer otra vez</button>
-      <button class="btn primary" onclick="usarMisDatos()">Ahora arma la tuya →</button></div></div>
+      <button class="btn primary go" onclick="usarMisDatos()">Ahora arma la tuya →</button></div></div>
   <div class="step-nav normal-nav"><button class="btn secondary" onclick="go(3)">← Atrás</button>
     <div class="right"><button class="btn secondary" id="gaRerun" onclick="rerun()">Probar otra vez</button>
-      <button class="btn primary" id="gaNext" onclick="go(5)" disabled>Ver mi plan →</button></div></div>
+      <button class="btn primary" id="gaNext" onclick="go(5)" disabled>Ver tu plan →</button></div></div>
 </section>
 
 <section class="card screen hidden-screen" id="resultsCard" data-step="5">
@@ -1086,15 +1126,46 @@
   <div class="talk">
     <h3>¿Qué te pareció?</h3>
     <p>Me encantaría leerte. ¿Podrías explicar con tus palabras qué hizo el algoritmo? ¿Algo te sorprendió o lo cambiarías? Cuéntamelo en los comentarios del artículo.</p>
-    <a class="btn secondary" id="talkLink" href="https://designingspring.substack.com/" target="_blank" rel="noopener">Comentar en Designing Spring →</a>
+    <a class="btn primary" id="talkLink" href="https://designingspring.substack.com/" target="_blank" rel="noopener" onclick="track('8-comentar')">Comentar en Designing Spring →</a>
   </div>
-  <div class="step-nav"><button class="btn secondary" onclick="go(4)">← Ver cómo se armó</button>
-    <div class="right"><button class="btn primary" onclick="generarOtro()">Generar otro plan</button></div></div>
+  <div class="step-nav"><button class="btn secondary" onclick="go(4)">← Ver cómo evolucionó tu semana</button>
+    <div class="right"><button class="btn secondary" id="pdfBtnMain" onclick="downloadPDF(this)">Descargar tu plan (PDF)</button><button class="btn primary" onclick="generarOtro()">Generar otro plan</button></div></div>
 </section>
 
 <p class="footer-note">Proyecto educativo: muestra el uso de un algoritmo genético para armar menús. Los alimentos, recetas y valores nutricionales son ejemplos aproximados. No reemplaza la orientación de un profesional de la salud.</p>
+<p class="footer-note credit">Contamos visitas de forma anónima, sin cookies. Lo que escribes no sale de tu dispositivo.</p>
 <p class="footer-note credit">Creado por Ramona Santos · <a href="https://designingspring.substack.com/" target="_blank" rel="noopener">Designing Spring</a> · 2026</p>
 
+<script>
+// ---- Contador de uso (GoatCounter): anónimo, sin cookies ----
+// Solo cuenta visitas y pasos ("alguien llegó al plan final"). Nunca envía peso, edad, alimentos ni nada que la persona escribe.
+// Para activarlo: pon aquí el nombre del sitio en GoatCounter (el de https://NOMBRE.goatcounter.com). Vacío = apagado.
+const GOATCOUNTER_CODE = 'designingspring';
+if (GOATCOUNTER_CODE && !/^(localhost|127\.|\[::1\])/.test(location.hostname) && location.protocol !== 'file:') {
+  const gc = document.createElement('script');
+  gc.async = true; gc.src = 'https://gc.zgo.at/count.js';
+  gc.dataset.goatcounter = `https://${GOATCOUNTER_CODE}.goatcounter.com/count`;
+  document.head.appendChild(gc);
+}
+const trackedOnce = new Set();
+// Cuenta una acción una sola vez por visita (para ver cuántas personas llegan a cada paso).
+function track(name) {
+  if (!GOATCOUNTER_CODE || trackedOnce.has(name)) return;
+  trackedOnce.add(name);
+  const send = () => window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path: name, title: name, event: true });
+  if (window.goatcounter && window.goatcounter.count) send(); else setTimeout(send, 1500);
+}
+</script>
+<script>
+// Idioma: el español es el texto original; el inglés se pone encima (ver "Idiomas" al final).
+// Orden: ?lang= en el enlace, luego lo que la persona eligió antes, luego el idioma de su navegador.
+let LANG = (() => {
+  const q = new URLSearchParams(location.search).get('lang');
+  if (q === 'es' || q === 'en') return q;
+  try { const v = localStorage.getItem('ds.lang'); if (v === 'es' || v === 'en') return v; } catch (e) {}
+  return (navigator.language || 'es').toLowerCase().startsWith('es') ? 'es' : 'en';
+})();
+</script>
 <script>
 const FOODS = {
   Desayuno: [
@@ -1281,6 +1352,7 @@ function grams(q, u) {
 }
 // Una parte de receta en texto: "1½ huevos", "2 rebanadas de pan integral", "170 g de yogur griego"
 function partText(pt, q) {
+  if (LANG === 'en') return partTextEn(pt, q);
   if (pt.u === 'u') return `${frac(q)} ${(q > 1 ? (pt.pl || pt.n) : pt.n).toLowerCase()}`;
   if (UNIT_WORDS[pt.u]) return `${frac(q)} ${UNIT_WORDS[pt.u][q > 1 ? 1 : 0]} de ${pt.n.toLowerCase()}`;
   return `${grams(q, pt.u)} de ${pt.n.toLowerCase()}`;
@@ -1288,7 +1360,7 @@ function partText(pt, q) {
 // Cantidad para la lista de compras: "9", "6 rebanadas", "640 g"
 function shopQty(pt, q) {
   if (pt.u === 'u') return frac(q);
-  if (UNIT_WORDS[pt.u]) return `${frac(q)} ${UNIT_WORDS[pt.u][q > 1 ? 1 : 0]}`;
+  if (UNIT_WORDS[pt.u]) return `${frac(q)} ${(LANG === 'en' ? UNIT_WORDS_EN : UNIT_WORDS)[pt.u][q > 1 ? 1 : 0]}`;
   return grams(q, pt.u);
 }
 
@@ -1352,11 +1424,11 @@ function calcularNecesidades() {
 
   // Datos fuera de lo razonable: no se calcula nada y se dice qué revisar.
   const issues = [];
-  if (lb && (lb < 70 || lb > 500)) issues.push('el peso (entre 70 y 500 lb)');
-  if (height && (height < 120 || height > 230)) issues.push('la estatura (entre 4 y 7 pies)');
-  if (inch && (inch < 0 || inch > 11)) issues.push('las pulgadas (de 0 a 11)');
+  if (lb && (lb < 70 || lb > 500)) issues.push(tx('el peso (entre 70 y 500 lb)'));
+  if (height && (height < 120 || height > 230)) issues.push(tx('la estatura (entre 4 y 7 pies)'));
+  if (inch && (inch < 0 || inch > 11)) issues.push(tx('las pulgadas (de 0 a 11)'));
   const minor = age && age < 18;
-  if (age && !minor && age > 100) issues.push('la edad (hasta 100 años)');
+  if (age && !minor && age > 100) issues.push(tx('la edad (hasta 100 años)'));
   const filled = weight && height && age && sex && document.getElementById('calcActivity').value && document.getElementById('calcGoal').value && !issues.length && !minor;
   document.getElementById('calcResult').style.display = filled ? 'block' : 'none';
   document.getElementById('step1Next').disabled = !filled;
@@ -1364,7 +1436,7 @@ function calcularNecesidades() {
   hint.style.visibility = filled ? 'hidden' : 'visible';
   hint.innerHTML = minor
     ? 'Para menores de 18 años estas fórmulas no aplican. <button type="button" class="link-btn" onclick="usarEjemplo()">Ver la demostración con la persona de ejemplo</button>'
-    : issues.length ? `Revisa ${issues.join(', ')}.` : 'Completa tus datos para seguir.';
+    : issues.length ? `${LANG === 'en' ? 'Check' : 'Revisa'} ${issues.join(', ')}.` : 'Completa tus datos para seguir.';
   if (!filled) {
     ['minProt', 'maxProt', 'minFat', 'maxFat', 'minCarb', 'maxCarb'].forEach(id => { document.getElementById(id).value = ''; });
     calculatedNeeds = null;
@@ -1436,6 +1508,7 @@ function calcularNecesidades() {
   };
 
   calculatedNeeds = { proteinG, fatG, carbG, targetCalories, bmr, tdee, ranges };
+  if (!exampleMode) track('4-meta-calculada');
 
   const pct = k => Math.round(k / totalKcal * 100) + '%';
   const fmtK = v => Math.round(v).toLocaleString('es-MX');
@@ -1484,12 +1557,11 @@ function ampliarPorciones() {
   if (step === 4) rerun(); else go(4);
 }
 function saveFoodPrefs() {
-  const prefs = { off: [], maxMult: {}, whole: {} };
+  const prefs = { off: [], maxMult: {} };
   document.querySelectorAll('.food-row').forEach(row => {
     const name = row.dataset.name;
     if (!row.querySelector('.foodCheck').checked) prefs.off.push(name);
     prefs.maxMult[name] = parseFloat(row.querySelector('.maxMult').value);
-    prefs.whole[name] = row.querySelector('.wholeCheck').checked;
     row.classList.toggle('off', !row.querySelector('.foodCheck').checked);
   });
   try { localStorage.setItem(PREFS_KEY, JSON.stringify(prefs)); } catch (e) {}
@@ -1513,18 +1585,20 @@ function renderFoodLists() {
     FOODS[group].forEach((food, i) => {
       // por defecto, una sola porción; las guarniciones (arroz, pasta, plátano, yuca…) hasta 2×,
       // porque son las que dan la energía: con 1× a muchas personas activas no les alcanza.
-      const max = (prefs.maxMult && prefs.maxMult[food.name]) || (group === 'Guarnición' ? 2 : 1);
+      // Lo que no tiene sentido partir (un huevo duro, una lata, un muffin) viene marcado en los datos
+      // y nunca se sirve partido: su menú solo ofrece porciones enteras (1 o 2).
+      const whole = !!food.whole;
+      let max = (prefs.maxMult && prefs.maxMult[food.name]) || (group === 'Guarnición' ? 2 : 1);
+      if (whole) max = Math.max(1, Math.floor(max));
       const on = !off.has(food.name);
-      const whole = prefs.whole && food.name in prefs.whole ? prefs.whole[food.name] : !!food.whole;
       html += `
-        <div class="food-row${on ? '' : ' off'}" data-name="${food.name}">
+        <div class="food-row${on ? '' : ' off'}" data-name="${food.name}"${whole ? ' data-whole="1"' : ''}>
           <label class="f-main"><input type="checkbox" ${on ? 'checked' : ''} data-group="${group}" data-idx="${i}" class="foodCheck">
             <span class="f-name">${food.name}<small>${food.portion}</small></span></label>
           <span class="chips"><span class="chip p">P ${food.p}</span><span class="chip f">G ${food.f}</span><span class="chip c">C ${food.c}</span>${food.lac ? '<span class="chip lac">Lactosa</span>' : ''}</span>
           <span class="f-ctrl">
-            <label title="Nunca servir media porción"><input type="checkbox" class="wholeCheck"${whole ? ' checked' : ''}> No partir</label>
             <select class="maxMult" title="Porción máxima" aria-label="Porción máxima de ${food.name}">
-              ${PORTIONS.map(m => `<option value="${m}"${m === max ? ' selected' : ''}>Máx ${m}×</option>`).join('')}
+              ${PORTIONS.filter(m => !whole || Number.isInteger(m)).map(m => `<option value="${m}"${m === max ? ' selected' : ''}>${frac(m)} ${m > 1 ? 'porciones' : 'porción'}</option>`).join('')}
             </select>
           </span>
         </div>`;
@@ -1758,12 +1832,12 @@ function readInputs() {
     if (!cb.checked) return;
     // Filtro duro: lo desmarcado ni siquiera entra como opción del gen "alimento",
     // y el gen "porción" de cada alimento solo puede tomar valores hasta su máximo.
-    // "No partir" quita la media porción de las opciones de ese alimento.
+    // Lo que no se parte (data-whole) solo va en porciones enteras.
     const rowEl = cb.closest('.food-row');
     const max = parseFloat(rowEl.querySelector('.maxMult').value);
-    const whole = rowEl.querySelector('.wholeCheck').checked;
-    let allowed = PORTIONS.filter(m => m <= max && (!whole || m >= 1));
-    if (allowed.length === 0) allowed = [1]; // "Máx 0.5×" + "No partir": se sirve entero
+    const whole = rowEl.dataset.whole === '1';
+    let allowed = PORTIONS.filter(m => m <= max && (!whole || Number.isInteger(m)));
+    if (allowed.length === 0) allowed = [1]; // por si acaso: lo que no se parte se sirve entero
     const food = Object.assign({}, FOODS[cb.dataset.group][cb.dataset.idx], { allowed });
     selected[cb.dataset.group].push(food);
   });
@@ -2114,12 +2188,12 @@ function macroBar(cls, label, avg, target, lo, hi) {
 
 function dayFlags(t, limits) {
   const f = [];
-  if (limits.minProt !== null && t.prot < limits.minProt) f.push('poca proteína');
-  if (limits.maxProt !== null && t.prot > limits.maxProt) f.push('mucha proteína');
-  if (limits.minFat !== null && t.fat < limits.minFat) f.push('poca grasa');
-  if (limits.maxFat !== null && t.fat > limits.maxFat) f.push('mucha grasa');
-  if (limits.minCarb !== null && t.carb < limits.minCarb) f.push('pocos carbohidratos');
-  if (limits.maxCarb !== null && t.carb > limits.maxCarb) f.push('muchos carbohidratos');
+  if (limits.minProt !== null && t.prot < limits.minProt) f.push(tx('poca proteína'));
+  if (limits.maxProt !== null && t.prot > limits.maxProt) f.push(tx('mucha proteína'));
+  if (limits.minFat !== null && t.fat < limits.minFat) f.push(tx('poca grasa'));
+  if (limits.maxFat !== null && t.fat > limits.maxFat) f.push(tx('mucha grasa'));
+  if (limits.minCarb !== null && t.carb < limits.minCarb) f.push(tx('pocos carbohidratos'));
+  if (limits.maxCarb !== null && t.carb > limits.maxCarb) f.push(tx('muchos carbohidratos'));
   return f;
 }
 
@@ -2128,7 +2202,7 @@ let shopText = '', shopList = [];
 function geneAmount(g) {
   const rec = RECETAS[g.food.name];
   return rec && rec.length > 1
-    ? `${frac(g.mult)} ${g.mult > 1 ? 'porciones' : 'porción'}`
+    ? `${frac(g.mult)} ${LANG === 'en' ? (g.mult > 1 ? 'servings' : 'serving') : (g.mult > 1 ? 'porciones' : 'porción')}`
     : rec && (rec[0].u === 'u' || UNIT_WORDS[rec[0].u]) ? partText(rec[0], rec[0].q * g.mult)
     : `${Math.round(g.food.amount * g.mult)} ${g.food.unit.split(' ')[0]}`;
 }
@@ -2144,7 +2218,7 @@ function renderResults(chromo, parts, history, limits, repaired, polishGain, noS
   const stillOut = daysOutside(chromo, limits);
   const fmtK = v => Math.round(v).toLocaleString('es-MX');
 
-  let html = (exampleMode ? `<div class="sample-note"><span>${EXAMPLE_TEXT}</span><button class="btn secondary" onclick="usarMisDatos()">Usar mis datos →</button></div>` : '') +
+  let html = (exampleMode ? `<div class="sample-note"><span>${EXAMPLE_TEXT}</span><button class="btn primary go" onclick="usarMisDatos()">Usar tus datos →</button></div>` : '') +
     `<div class="res-head"><h2>${exampleMode ? 'La semana de ejemplo' : 'Tu semana'}</h2><span class="hint">~${fmtK(avgKcal)} kcal al día en promedio · ${parts.distinct} alimentos distintos</span></div>`;
 
   // 1) Resumen en palabras simples: va antes de la lección, para no festejar algo que no llegó
@@ -2228,12 +2302,12 @@ function renderResults(chromo, parts, history, limits, repaired, polishGain, noS
     if (rec) rec.forEach(pt => addItem(pt, pt.q * g.mult));
     else addItem({ n: g.food.name, u: g.food.unit.split(' ')[0] }, g.food.amount * g.mult);
   }));
-  const shopItems = Object.values(shop).sort((a, b) => a.pt.n.localeCompare(b.pt.n, 'es'));
-  const label = it => it.pt.u === 'u' && it.q > 1 && it.pt.pl ? it.pt.pl : it.pt.n;
+  const label = it => { const n = it.pt.u === 'u' && it.q > 1 && it.pt.pl ? it.pt.pl : it.pt.n; return LANG === 'en' ? ingEn(n) : n; };
+  const shopItems = Object.values(shop).sort((a, b) => label(a).localeCompare(label(b), LANG));
   shopList = shopItems.map(it => [label(it), shopQty(it.pt, it.q)]);
-  shopText = 'Lista de compras de la semana\n' + shopItems.map(it => `- ${label(it)}: ${shopQty(it.pt, it.q)}`).join('\n');
+  shopText = tx('Lista de compras de la semana') + '\n' + shopItems.map(it => `- ${label(it)}: ${shopQty(it.pt, it.q)}`).join('\n');
   html += `<details class="more shop-box"><summary>Lista de compras (${shopItems.length} ingredientes) · copiar, descargar o imprimir</summary><section class="shop"><div class="shop-head"><h3>Lista de compras (${shopItems.length} ingredientes)</h3>` +
-    `<span><button class="btn secondary" id="copyBtn" onclick="copyShopping()">Copiar lista</button> <button class="btn secondary" id="pdfBtn" onclick="downloadPDF()">Descargar PDF</button> <button class="btn secondary" onclick="window.print()">Imprimir</button></span></div>` +
+    `<span><button class="btn secondary" id="copyBtn" onclick="copyShopping()">Copiar lista</button> <button class="btn secondary" id="pdfBtn" onclick="downloadPDF(this)">Descargar PDF</button> <button class="btn secondary" onclick="window.print()">Imprimir</button></span></div>` +
     `<p class="hint" style="margin:6px 0 0;">Los platos están desglosados en sus ingredientes. Cantidades aproximadas.</p>` +
     `<ul>${shopItems.map(it => `<li>${label(it)}<span>${shopQty(it.pt, it.q)}</span></li>`).join('')}</ul></section></details>`;
 
@@ -2295,85 +2369,189 @@ function loadScript(src) {
     document.head.appendChild(el);
   });
 }
-async function downloadPDF() {
+async function downloadPDF(btn = document.getElementById('pdfBtn')) {
   if (!currentPlan) return;
-  const btn = document.getElementById('pdfBtn');
+  const label = btn.id === 'pdfBtnMain' ? 'Descargar tu plan (PDF)' : 'Descargar PDF'; // el texto original en español; la pantalla lo traduce
   btn.disabled = true; btn.textContent = 'Preparando…';
   try {
     await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
     await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js');
-    buildPDF().save(`plan-semanal-${new Date().toISOString().slice(0, 10)}.pdf`);
-    btn.textContent = 'Descargar PDF';
+    track('7-pdf-descargado');
+    (await buildPDF()).save(`${LANG === 'en' ? 'weekly-plan' : 'plan-semanal'}-${new Date().toISOString().slice(0, 10)}.pdf`);
+    btn.textContent = label;
   } catch (e) {
     btn.textContent = 'Sin conexión: usa Imprimir';
   } finally {
     btn.disabled = false;
   }
 }
-function buildPDF() {
+// ---- PDF con la marca Designing Spring ----
+// Letra de títulos (Gloock) y logo: se cargan solo al armar el PDF. Si no hay conexión, se usa Helvetica.
+// Base sobria (negro, grises, blanco) con un toque del dorado de la marca.
+const PDF_C = { ink: [24, 24, 24], muted: [112, 112, 112], soft: [150, 150, 150], line: [218, 218, 218], rowAlt: [246, 246, 245], card: [243, 243, 241], gold: [227, 167, 47], goldInk: [128, 84, 8] }; // goldInk: 6.6:1 sobre blanco (texto); gold solo en líneas decorativas
+let pdfAssets = null;
+async function loadPdfAssets() {
+  if (pdfAssets) return pdfAssets;
+  const out = { font: null, logo: null };
+  try {
+    const r = await fetch('https://cdn.jsdelivr.net/gh/google/fonts@main/ofl/gloock/Gloock-Regular.ttf');
+    if (r.ok) {
+      const bytes = new Uint8Array(await r.arrayBuffer());
+      let bin = ''; for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+      out.font = btoa(bin);
+    }
+  } catch (e) {}
+  try { out.logo = await logoPNG(); } catch (e) {}
+  return (pdfAssets = out);
+}
+// El logo de la cabecera de la app, dibujado como imagen para el PDF.
+function logoPNG() {
+  return new Promise((resolve, reject) => {
+    const svg = document.querySelector('.mast-brand svg').cloneNode(true);
+    svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg'); svg.setAttribute('width', 600); svg.setAttribute('height', 600);
+    const img = new Image();
+    img.onload = () => { const c = document.createElement('canvas'); c.width = c.height = 600; const g = c.getContext('2d'); g.drawImage(img, 0, 0, 600, 600); resolve(c.toDataURL('image/png')); };
+    img.onerror = reject;
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(new XMLSerializer().serializeToString(svg));
+  });
+}
+async function buildPDF() {
+  const A = await loadPdfAssets();
   const doc = new window.jspdf.jsPDF({ unit: 'pt', format: 'a4' });
-  const green = [47, 111, 94], muted = [116, 113, 107], M = 40, W = doc.internal.pageSize.getWidth();
+  const W = doc.internal.pageSize.getWidth(), H = doc.internal.pageSize.getHeight(), M = 36, BOTTOM = H - 50;
+  let display = 'helvetica';
+  if (A.font) { doc.addFileToVFS('Gloock.ttf', A.font); doc.addFont('Gloock.ttf', 'Gloock', 'normal'); display = 'Gloock'; }
+  const title = (t, x, y, size, color = PDF_C.ink, opts) => { doc.setFont(display, 'normal'); doc.setFontSize(size); doc.setTextColor(...color); doc.text(t, x, y, opts); };
+  const body = (size, color = PDF_C.ink, style = 'normal') => { doc.setFont('helvetica', style); doc.setFontSize(size); doc.setTextColor(...color); };
+  const loc = LANG === 'en' ? 'en-US' : 'es-MX', nf = v => Math.round(v).toLocaleString(loc);
+
+  // Marca de agua: una flor de puntos grises, con el ángulo de oro (137.5°) de la marca.
+  // Se dibuja una vez como imagen y va primero en cada página, debajo del contenido.
+  const WM = 520, wmImg = (() => {
+    const c = document.createElement('canvas'); c.width = c.height = 1400; const g = c.getContext('2d'), k = 1400 / WM;
+    g.fillStyle = 'rgb(222, 219, 211)';
+    const N = 620, R = WM / 2 - 6, golden = Math.PI * (3 - Math.sqrt(5));
+    for (let i = 1; i <= N; i++) {
+      const r = R * Math.sqrt(i / N), a = i * golden;
+      g.beginPath(); g.arc((WM / 2 + r * Math.cos(a)) * k, (WM / 2 + r * Math.sin(a)) * k, (0.5 + 1.4 * i / N) * k, 0, 2 * Math.PI); g.fill();
+    }
+    return c.toDataURL('image/png');
+  })();
+  const watermark = () => doc.addImage(wmImg, 'PNG', W * 0.86 - WM / 2, H * 0.84 - WM / 2, WM, WM, 'wm', 'FAST'); // flor en la esquina, sale del borde
+  const newPage = () => { doc.addPage(); watermark(); };
+  watermark();
+
   const totals = currentPlan.map(dayTotals);
   const avg = k => totals.reduce((a, t) => a + t[k], 0) / 7;
   const kcal = t => t.prot * 4 + t.fat * 9 + t.carb * 4;
   const cn = calculatedNeeds || {};
-  doc.setFont('helvetica', 'bold'); doc.setFontSize(18); doc.text('Tu plan semanal de comidas', M, 52);
-  doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.setTextColor(...muted);
-  doc.text(`Armado con un algoritmo genético · ${new Date().toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' })}`, M, 70);
-  doc.setTextColor(0);
-  const goal = (v, x) => x ? `${v.toFixed(0)} g (meta ${x.toFixed(0)} g)` : `${v.toFixed(0)} g`;
-  doc.autoTable({
-    startY: 84, margin: { left: M, right: M }, theme: 'plain', styles: { fontSize: 10, cellPadding: 3 },
-    head: [['Promedio al día', 'Proteína', 'Grasa', 'Carbohidratos', 'Calorías']],
-    headStyles: { textColor: muted, fontStyle: 'normal', fontSize: 9 },
-    body: [['', goal(avg('prot'), cn.proteinG), goal(avg('fat'), cn.fatG), goal(avg('carb'), cn.carbG), `~${Math.round(kcal({ prot: avg('prot'), fat: avg('fat'), carb: avg('carb') }))} kcal`]],
-    columnStyles: { 0: { cellWidth: 90 } },
+  const dateTxt = new Date().toLocaleDateString(loc, { day: 'numeric', month: 'long', year: 'numeric' });
+
+  // Encabezado azul noche
+  if (A.logo) doc.addImage(A.logo, 'PNG', M, 24, 30, 30, 'logo', 'FAST');
+  const tx0 = A.logo ? M + 40 : M;
+  title('Designing Spring', tx0, 38, 12);
+  body(8, PDF_C.muted); doc.text(tx('De la naturaleza al código'), tx0, 51);
+  title(tx('Tu plan semanal de comidas'), M, 82, 22);
+  body(8.5, PDF_C.muted); doc.text(`${tx('Armado con un algoritmo genético')} · ${dateTxt}`, M, 97);
+  doc.setDrawColor(...PDF_C.gold); doc.setLineWidth(1.2); doc.line(M, 108, W - M, 108);
+  // Cómo se armó: el experimento en tres números, a la derecha del encabezado
+  if (gaInfo) {
+    const fg = v => v < 0.05 ? '0 g' : v < 10 ? `${v.toFixed(1)} g` : `${nf(v)} g`;
+    const lim = lastRender ? lastRender[3] : null;
+    const nowGap = weekGap(currentPlan, lim), okDays = 7 - daysOutside(currentPlan, lim);
+    const stats = [[nf(gaInfo.tried), tx('semanas probadas')], [`${okDays} ${LANG === 'en' ? 'of' : 'de'} 7`, tx('días dentro de tus rangos')],
+      [fg(nowGap), `${tx('fuera de tus rangos')} (${tx('al azar')}: ${fg(gaInfo.rndGap)})`]];
+    const sw = 86, sx = W - M - sw * 3 + 6;
+    stats.forEach(([big, small], i) => {
+      const x = sx + i * sw;
+      title(big, x, 40, 15, PDF_C.goldInk);
+      body(7, PDF_C.muted); doc.text(small, x, 52, { maxWidth: sw - 10 });
+    });
+  }
+
+  // Resumen: promedio diario frente a la meta
+  let y = 124;
+  body(7, PDF_C.muted); doc.text(tx('Promedio al día').toUpperCase(), M, y);
+  y += 5;
+  const cards = [['Proteína', avg('prot'), cn.proteinG, 'g'], ['Grasa', avg('fat'), cn.fatG, 'g'], ['Carbohidratos', avg('carb'), cn.carbG, 'g'],
+    ['Calorías', kcal({ prot: avg('prot'), fat: avg('fat'), carb: avg('carb') }), cn.targetCalories, 'kcal']];
+  const gap = 8, cw = (W - 2 * M - gap * 3) / 4;
+  cards.forEach(([label, v, goal, unit], i) => {
+    const x = M + i * (cw + gap);
+    doc.setFillColor(...PDF_C.card); doc.roundedRect(x, y, cw, 34, 5, 5, 'F');
+    body(7, PDF_C.muted, 'bold'); doc.text(tx(label).toUpperCase(), x + 9, y + 11);
+    title(`${nf(v)} ${unit}`, x + 9, y + 26, 12);
+    if (goal) { body(7, PDF_C.muted); doc.text(`${tx('meta')} ${nf(goal)}`, x + cw - 9, y + 26, { align: 'right' }); }
   });
-  // Un cuadro por día, agrupado por comida
+  y += 34 + 12;
+
+  // Los 7 días a todo el ancho; la receta va en la misma línea que el plato. Ningún día se parte.
+  const partW = 50, mealW = 54, amountW = 70, fullW = W - 2 * M;
+  const cellPad = { top: 1.9, bottom: 1.9, left: 6, right: 6 };
+  const dayRows = day => SLOTS.map((s, si) => {
+    const g = day[s.key], rec = RECETAS[g.food.name];
+    const name = rec && rec.length > 1 ? `${tx(g.food.name)}  ·  ${rec.map(pt => partText(pt, pt.q * g.mult)).join(' + ')}` : tx(g.food.name);
+    // Cantidad corta: "3 rebanadas" en vez de "3 rebanadas de pan integral" (el alimento ya está a la izquierda)
+    const r0 = rec && rec.length === 1 ? rec[0] : null;
+    const amount = r0 && UNIT_WORDS[r0.u] ? shopQty(r0, r0.q * g.mult) : geneAmount(g);
+    return [si === 0 || SLOTS[si - 1].meal !== s.meal ? tx(s.meal) : '', s.label === s.meal ? '' : tx(s.label), name, amount];
+  });
+  const textW = fullW - partW - mealW - amountW - 2 * cellPad.left - 2;
+  const dayHeight = rows => {
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(7.6);
+    return 18 + rows.reduce((a, r) => a + cellPad.top + cellPad.bottom + Math.max(1, doc.splitTextToSize(r[2], textW).length, doc.splitTextToSize(r[3], amountW - 12).length) * 8.8, 0);
+  };
   currentPlan.forEach((day, i) => {
-    const t = totals[i], rows = [];
-    SLOTS.forEach((s, si) => {
-      const g = day[s.key], rec = RECETAS[g.food.name];
-      const name = rec && rec.length > 1 ? `${g.food.name}\n${rec.map(pt => partText(pt, pt.q * g.mult)).join(' + ')}` : g.food.name;
-      rows.push([si === 0 || SLOTS[si - 1].meal !== s.meal ? s.meal : '', s.label === s.meal ? '' : s.label, name, geneAmount(g)]);
-    });
-    // Que un día no quede partido entre dos páginas: si no cabe, empieza en la siguiente.
-    const est = 26 + rows.reduce((a, r) => a + 8 + 10.5 * (r[2].split('\n').length + Math.floor(r[2].length / 75)), 0);
-    let y = doc.lastAutoTable.finalY + 18;
-    if (y + est > doc.internal.pageSize.getHeight() - 50) { doc.addPage(); y = 40; }
+    const t = totals[i], rows = dayRows(day);
+    if (y + dayHeight(rows) > BOTTOM) { newPage(); y = 40; }
     doc.autoTable({
-      startY: y, margin: { left: M, right: M, bottom: 50 }, rowPageBreak: 'avoid',
-      head: [[{ content: DAYS[i], colSpan: 2 }, { content: `P ${t.prot.toFixed(0)} g · G ${t.fat.toFixed(0)} g · C ${t.carb.toFixed(0)} g · ${Math.round(kcal(t))} kcal`, colSpan: 2, styles: { halign: 'right', fontStyle: 'normal' } }]],
-      body: rows, theme: 'grid',
-      headStyles: { fillColor: green, textColor: 255, fontSize: 11 },
-      styles: { fontSize: 9, cellPadding: 4, lineColor: [225, 222, 215], valign: 'top' },
-      columnStyles: { 0: { fontStyle: 'bold', textColor: green, cellWidth: 70 }, 1: { textColor: muted, cellWidth: 70 }, 3: { cellWidth: 95 } },
+      startY: y, margin: { left: M, right: M, bottom: 50 }, theme: 'plain', pageBreak: 'avoid', rowPageBreak: 'avoid',
+      head: [[{ content: tx(DAYS[i]), colSpan: 2, styles: { font: display, fontSize: 11, fontStyle: 'normal' } },
+        { content: `P ${t.prot.toFixed(0)} g · ${LANG === 'en' ? 'F' : 'G'} ${t.fat.toFixed(0)} g · C ${t.carb.toFixed(0)} g · ${Math.round(kcal(t))} kcal`, colSpan: 2,
+          styles: { halign: 'right', fontSize: 7.5, textColor: PDF_C.muted, valign: 'bottom' } }]],
+      body: rows,
+      headStyles: { fillColor: [255, 255, 255], textColor: PDF_C.ink, cellPadding: { top: 3, bottom: 3, left: 0, right: 0 }, lineColor: PDF_C.gold, lineWidth: { bottom: 1 } },
+      styles: { font: 'helvetica', fontSize: 7.6, cellPadding: cellPad, textColor: PDF_C.ink, valign: 'top', lineColor: PDF_C.line, lineWidth: { bottom: 0.4 }, fillColor: [255, 255, 255] },
+      alternateRowStyles: { fillColor: PDF_C.rowAlt },
+      columnStyles: { 0: { fontStyle: 'bold', textColor: PDF_C.goldInk, cellWidth: mealW, fontSize: 7.2 }, 1: { textColor: PDF_C.muted, cellWidth: partW, fontSize: 7.2 }, 3: { cellWidth: amountW, halign: 'right' } },
     });
+    y = doc.lastAutoTable.finalY + 7;
   });
-  // Lista de compras en dos columnas
-  doc.addPage();
-  doc.setFont('helvetica', 'bold'); doc.setFontSize(16); doc.text('Lista de compras de la semana', M, 52);
-  doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(...muted);
-  doc.text('Los platos están desglosados en sus ingredientes. Cantidades aproximadas.', M, 68);
-  doc.setTextColor(0);
-  const half = Math.ceil(shopList.length / 2), colW = (W - 2 * M - 20) / 2;
-  [shopList.slice(0, half), shopList.slice(half)].forEach((list, c) => doc.autoTable({
-    startY: 80, margin: { left: M + c * (colW + 20) }, tableWidth: colW, body: list, theme: 'striped',
-    styles: { fontSize: 9.5, cellPadding: 4 }, columnStyles: { 1: { halign: 'right', cellWidth: 70 } },
-    alternateRowStyles: { fillColor: [245, 243, 238] },
+
+  // Lista de compras: justo después de los días, en tres columnas
+  y += 4;
+  const listRows = Math.ceil(shopList.length / 3), listH = 30 + listRows * 14;
+  if (y + listH > BOTTOM) { newPage(); y = 44; }
+  title(tx('Lista de compras de la semana'), M, y + 12, 15);
+  body(7.5, PDF_C.muted); doc.text(tx('Los platos están desglosados en sus ingredientes. Cantidades aproximadas.'), W - M, y + 12, { align: 'right' });
+  doc.setDrawColor(...PDF_C.gold); doc.setLineWidth(1); doc.line(M, y + 19, W - M, y + 19);
+  const lgap = 12, lw = (W - 2 * M - 2 * lgap) / 3;
+  [0, 1, 2].forEach(c => doc.autoTable({
+    startY: y + 24, margin: { left: M + c * (lw + lgap), right: 0, bottom: 58 }, tableWidth: lw, theme: 'plain',
+    body: shopList.slice(c * listRows, (c + 1) * listRows),
+    styles: { fontSize: 8, cellPadding: { top: 2.6, bottom: 2.6, left: 5, right: 5 }, textColor: PDF_C.ink, lineColor: PDF_C.line, lineWidth: { bottom: 0.4 }, fillColor: [255, 255, 255] },
+    columnStyles: { 1: { halign: 'right', cellWidth: 58, textColor: PDF_C.muted } },
+    alternateRowStyles: { fillColor: PDF_C.rowAlt },
   }));
+
   // Pie en cada página
   const n = doc.getNumberOfPages();
   for (let p = 1; p <= n; p++) {
-    doc.setPage(p); doc.setFontSize(8); doc.setTextColor(...muted);
-    doc.text('Proyecto educativo: muestra el uso de un algoritmo genético para armar menús. Valores aproximados; no reemplaza a un profesional de la salud.', M, doc.internal.pageSize.getHeight() - 22, { maxWidth: W - 2 * M - 40 });
-    doc.text(`${p} / ${n}`, W - M, doc.internal.pageSize.getHeight() - 22, { align: 'right' });
+    doc.setPage(p);
+    doc.setDrawColor(...PDF_C.line); doc.setLineWidth(0.7); doc.line(M, H - 40, W - M, H - 40);
+    if (A.logo) doc.addImage(A.logo, 'PNG', M, H - 32, 12, 12, 'logo', 'FAST');
+    title('Designing Spring', A.logo ? M + 17 : M, H - 23, 8.5);
+    body(7, PDF_C.muted);
+    doc.text(tx('Proyecto educativo: muestra el uso de un algoritmo genético para armar menús. Valores aproximados; no reemplaza a un profesional de la salud.'), M + 100, H - 23, { maxWidth: W - 2 * M - 135 });
+    body(8, PDF_C.muted); doc.text(`${p} / ${n}`, W - M, H - 23, { align: 'right' });
   }
   return doc;
 }
 
 function copyShopping() {
   const btn = document.getElementById('copyBtn');
+  track('7-lista-copiada');
   const done = () => { btn.textContent = '¡Copiada!'; setTimeout(() => { btn.textContent = 'Copiar lista'; }, 1800); };
   const fallback = () => {
     const ta = document.createElement('textarea');
@@ -2413,15 +2591,27 @@ function updateStepper() {
   if (demoAgain) demoAgain.disabled = running;
 }
 
+// El título grande cambia en cada paso; cada uno lleva una palabra en dorado.
+function stepTitle(n) {
+  return ({
+    1: '¿Cuánto necesita tu <em>cuerpo</em>?',
+    2: 'Elige lo que te gusta <em>comer</em>',
+    3: 'Diseña cómo quieres <em>tu semana</em>',
+    4: exampleMode ? 'Mira cómo <em>evoluciona</em> una semana' : 'Mira cómo <em>evoluciona</em> tu semana',
+    5: exampleMode ? 'La semana de ejemplo, <em>lista</em>' : 'Tu semana, <em>lista</em>',
+  })[n];
+}
 function go(n) {
   if (running) return;
   if (n > 1 && !calculatedNeeds) n = 1; // sin tus datos no hay meta: se queda en el paso 1
   if (n === 5 && !currentPlan) return;
+  if (n === 5 && !exampleMode) track('6-plan-final');
   step = n;
   maxStep = Math.max(maxStep, n);
   document.body.dataset.step = n;
   document.body.classList.toggle('in-demo', exampleMode && n === 4);
   document.getElementById('gaTitle').textContent = exampleMode ? 'Así evoluciona una semana' : 'Armando tu semana';
+  document.getElementById('stepTitle').innerHTML = stepTitle(n);
   document.querySelectorAll('.screen').forEach(sc => sc.classList.toggle('hidden-screen', +sc.dataset.step !== n));
   updateStepper();
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2437,6 +2627,7 @@ async function rerun() {
   try { ok = await runFull(); } finally {
     running = false;
     if (!ok) dirty = true;
+    if (ok) track(exampleMode ? '2-demo-vista' : '5-semana-armada');
     updateStepper();
   }
 }
@@ -2525,47 +2716,67 @@ function drawPop(samples, history, total, half, gaps) {
 // La línea de la mejor semana, en la misma medida que el resto de la app: gramos fuera de tus rangos.
 // Baja vuelta a vuelta; es la historia de ESTA búsqueda. gaps = [{gen, g}] cada pocas vueltas.
 const fmtGramos = v => v < 0.05 ? '0 g' : v < 10 ? `${v.toFixed(1).replace(/\.0$/, '')} g` : `${Math.round(v).toLocaleString('es-MX')} g`;
+// La línea de la mejor semana sube: qué tan cerca está de tus rangos.
+// 0% = la mejor semana de la primera vuelta (casi al azar); 100% = dentro de tus rangos (0 g fuera).
 function drawBestLine(gaps, total) {
   if (!gaps || !gaps.length) return;
   const W = 300, H = 64, P = 6, top = Math.max(gaps[0].g, 1);
+  const close = g => g < 0.05 ? 1 : Math.max(0, Math.min(1, 1 - g / top));
+  const pct = g => g < 0.05 ? 100 : Math.min(99, Math.floor(close(g) * 100)); // 100% solo si de verdad está dentro
   const X = gen => P + (gen / Math.max(1, total - 1)) * (W - 2 * P);
-  const Y = g => H - P - Math.max(0, Math.min(1, g / top)) * (H - 2 * P);
+  const Y = g => H - P - close(g) * (H - 2 * P);
   const pts = gaps.map(p => `${X(p.gen).toFixed(1)},${Y(p.g).toFixed(1)}`).join(' ');
   const last = gaps[gaps.length - 1];
   document.getElementById('gaLine').innerHTML =
     `<line x1="${P}" y1="${H - P}" x2="${W - P}" y2="${H - P}" stroke="#26324c"/>` +
+    `<line x1="${P}" y1="${P}" x2="${W - P}" y2="${P}" stroke="#8a6a2a" stroke-dasharray="3 4"/>` +
     `<polyline points="${pts}" fill="none" stroke="#e3a72f" stroke-width="2.2" stroke-linejoin="round"/>` +
     `<circle cx="${X(last.gen).toFixed(1)}" cy="${Y(last.g).toFixed(1)}" r="3.5" fill="#f4efe4"/>`;
-  document.getElementById('gaLineEnds').textContent = `${fmtGramos(gaps[0].g)} → ${fmtGramos(last.g)}`;
+  document.getElementById('gaLineEnds').innerHTML =
+    `<strong>${pct(gaps[0].g)}% → ${pct(last.g)}%</strong><span class="gle-g">${fmtGramos(gaps[0].g)} → ${fmtGramos(last.g)} fuera</span>`;
 }
 
-// La flor de la portada: una búsqueda de ejemplo que crece sola.
+// La flor de la portada: una búsqueda de ejemplo que crece sola, en ciclo.
+// Crece del centro hacia afuera, se queda completa un momento y vuelve a empezar con otra búsqueda.
+let bloomRun = 0;
 function growBloom() {
   const svg = document.getElementById('introBloom');
   if (!svg) return;
+  const run = ++bloomRun; // si se vuelve a la portada, el ciclo anterior se detiene
   let x = 7; const rnd = () => (x = (x * 16807) % 2147483647) / 2147483647;
-  const rounds = 40, cap = rounds * SEEDS_PER_ROUND, seeds = [];
-  for (let g = 0; g < rounds; g++) {
-    const base = 1 - Math.exp(-g / 15);
-    for (let j = 0; j < SEEDS_PER_ROUND / 2; j++) {
-      seeds.push({ keep: true, v: base * (1 - j * 0.06) + (rnd() - 0.5) * 0.3 * (1 - base * 0.7) });
-      seeds.push({ keep: false, v: 0 });
+  const rounds = 40, cap = rounds * SEEDS_PER_ROUND, best = cap - SEEDS_PER_ROUND;
+  const make = () => {
+    const seeds = [];
+    for (let g = 0; g < rounds; g++) {
+      const base = 1 - Math.exp(-g / 15);
+      for (let j = 0; j < SEEDS_PER_ROUND / 2; j++) {
+        seeds.push({ keep: true, v: base * (1 - j * 0.06) + (rnd() - 0.5) * 0.3 * (1 - base * 0.7) });
+        seeds.push({ keep: false, v: 0 });
+      }
     }
-  }
-  const best = cap - SEEDS_PER_ROUND, perRound = 60;
-  const countEl = document.getElementById('introCount');
-  const count = shown => { const r = Math.max(1, Math.ceil(shown / SEEDS_PER_ROUND));
-    countEl.innerHTML = `<strong>Vuelta ${r} de ${rounds}</strong><span class="cc-sep"> · </span><span class="cc-n">${(r * perRound).toLocaleString('es-MX')} semanas probadas</span>`; };
+    return seeds;
+  };
+  let seeds = make();
+  svg.style.opacity = '';
   svg.innerHTML = bloomSVG(seeds, cap, best); // visible desde el inicio, aunque la animación no corra
-  count(cap);
-  if (document.hidden || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const t0 = performance.now(), ms = 2600;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const GROW = 6000, HOLD = 3500, FADE = 900;
+  const alive = () => run === bloomRun && curScene === 0 && document.body.classList.contains('in-intro');
+  let t0 = performance.now(), full = false;
   const tick = now => {
-    const k = Math.min(1, (now - t0) / ms), shown = Math.max(1, Math.round(cap * (1 - Math.pow(1 - k, 2))));
-    svg.innerHTML = bloomSVG(seeds.slice(0, shown), cap, shown === cap ? best : -1);
-    count(shown);
-    if (k < 1 && curScene === 0 && document.body.classList.contains('in-intro')) requestAnimationFrame(tick);
-    else { svg.innerHTML = bloomSVG(seeds, cap, best); count(cap); }
+    if (!alive()) { if (run === bloomRun) { svg.style.opacity = ''; svg.innerHTML = bloomSVG(seeds, cap, best); } return; }
+    const t = now - t0;
+    if (t < GROW) {
+      const k = t / GROW, shown = Math.max(1, Math.round(cap * (1 - Math.pow(1 - k, 2))));
+      svg.innerHTML = bloomSVG(seeds.slice(0, shown), cap, -1); full = false;
+    } else if (t < GROW + HOLD) {
+      if (!full) { svg.innerHTML = bloomSVG(seeds, cap, best); full = true; }
+    } else if (t < GROW + HOLD + FADE) {
+      svg.style.opacity = String(1 - (t - GROW - HOLD) / FADE);
+    } else {
+      seeds = make(); t0 = now; svg.style.opacity = '';
+    }
+    requestAnimationFrame(tick);
   };
   requestAnimationFrame(tick);
 }
@@ -2578,6 +2789,7 @@ function showExampleNotes() {
 }
 // Vuelve al paso 1 con el formulario vacío para poner tus propios datos.
 function usarMisDatos() {
+  track('3-usar-mis-datos');
   exampleMode = false;
   ['calcWeight', 'calcHeightFt', 'calcHeightIn', 'calcAge', 'calcSex', 'calcActivity', 'calcGoal'].forEach(id => { document.getElementById(id).value = ''; });
   recalc();
@@ -2607,27 +2819,31 @@ let dayGapTop = 1;
 function drawDays(plan, limits, fresh, finalGap) {
   const gaps = plan.map(d => limitGap(dayTotals(d), limits));
   if (fresh) dayGapTop = Math.max(...gaps, 1);
+  // La barra se llena mientras más cerca está el día: llena y verde = dentro de tus rangos.
   document.getElementById('gaDays').innerHTML = plan.map((d, i) => {
     const g = gaps[i], inRange = !violatesLimits(dayTotals(d), limits);
-    return `<div class="pday ${inRange ? 'ok' : 'bad'}"><span>${DAY_SHORT[i]}</span><div class="bar-track">` +
-      `<div class="bar-fill" style="width:${inRange ? 0 : Math.max(3, Math.min(100, g / dayGapTop * 100))}%"></div></div>` +
-      `<span class="val">${inRange ? MARK_OK + ' dentro' : MARK_NO + ' ' + fmtGramos(g)}</span></div>`;
+    const fill = inRange ? 100 : Math.max(4, Math.min(94, (1 - g / dayGapTop) * 100));
+    return `<div class="pday ${inRange ? 'ok' : 'mid'}"><span>${DAY_SHORT[i]}</span><div class="bar-track">` +
+      `<div class="bar-fill" style="width:${fill.toFixed(0)}%"></div></div>` +
+      `<span class="val">${inRange ? MARK_OK + ' dentro' : MARK_NO + ' ' + fmtGramos(g) + ' fuera'}</span></div>`;
   }).join('');
   const ok = 7 - daysOutside(plan, limits);
   const nowGap = gaps.reduce((a, g) => a + g, 0);
+  const stat = document.getElementById('gaDaysStat');
+  stat.className = 'gd-pill' + (ok === 7 ? ' ok' : '');
+  stat.innerHTML = `${ok === 7 ? MARK_OK + ' ' : ''}${ok} de 7 días dentro`;
   const after = finalGap === undefined ? ''
     : nowGap < 0.05
-      ? ` La evolución dejó la semana a ${fmtGramos(finalGap)} (el final de la línea dorada); el ajuste fino, que cambia una comida a la vez, quitó el resto.`
-      : ` La evolución dejó la semana a ${fmtGramos(finalGap)} y el ajuste fino la bajó a ${fmtGramos(nowGap)}. Todavía faltan ${fmtGramos(nowGap)}: con estos alimentos y porciones es muy difícil llegar.` +
-        ` <button type="button" class="link-btn" onclick="ampliarPorciones()">Permitir porciones más grandes y volver a intentar</button>`;
-  const lead = ok === 7 ? '<strong>Los 7 días</strong> están dentro' : ok === 0 ? '<strong>Ningún día</strong> está dentro todavía' : `<strong>${ok} de 7 días</strong> están dentro`;
-  document.getElementById('gaInRange').innerHTML = `${lead} de tus rangos de proteína, grasa y carbohidratos. La barra muestra cuántos gramos se sale cada día: mientras más corta, mejor.${after}`;
+      ? `<p>La evolución dejó la semana a ${fmtGramos(finalGap)}; el ajuste fino, que cambia una comida a la vez, quitó el resto.</p>`
+      : `<p>La evolución dejó la semana a ${fmtGramos(finalGap)} y el ajuste fino la bajó a ${fmtGramos(nowGap)}. Todavía faltan ${fmtGramos(nowGap)}: con estos alimentos y porciones es muy difícil llegar.</p>` +
+        `<p><button type="button" class="link-btn" onclick="ampliarPorciones()">Permitir porciones más grandes y volver a intentar</button></p>`;
+  document.getElementById('gaInRange').innerHTML = `<p>Barra llena y verde: el día está dentro de tus rangos de proteína, grasa y carbohidratos.</p>${after}`;
 }
 
 // Deja el paso 4 vacío: que nunca quede a la vista una búsqueda que no es la de esta persona.
 function resetGACard() {
   ['gaPop', 'gaLine', 'gaDays', 'gaBeforeAfter', 'gaScore', 'gaSteps'].forEach(id => { const el = document.getElementById(id); if (el) el.innerHTML = ''; });
-  ['gaPopCount', 'gaLineEnds', 'gaInRange', 'gaGenLabel', 'gaPopHint'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = ''; });
+  ['gaPopCount', 'gaLineEnds', 'gaInRange', 'gaDaysStat', 'gaGenLabel', 'gaPopHint'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = ''; });
   document.getElementById('gaBar').style.width = '0';
   document.getElementById('compareCard').style.display = 'none';
 }
@@ -2655,7 +2871,7 @@ function renderBeforeAfter(inp, gen0, afterGA, final) {
   const g = cols.map(([, , v]) => v.gap), fmtG = v => v < 0.05 ? '0 g' : v < 10 ? `${v.toFixed(1).replace(/\.0$/, '')} g` : `${Math.round(v)} g`;
   const share = g[0] > 0.05 ? Math.round((g[0] - g[1]) / g[0] * 100) : 100;
   const lesson = g[0] <= 0.05 ? `Esta vez ya la primera vuelta tenía una semana dentro de tus rangos.`
-    : `<strong>La evolución hizo ${share >= 99 ? 'todo' : `el ${share}% del`} trabajo:</strong> bajó de ${fmtG(g[0])} a ${fmtG(g[1])} fuera de tus rangos.` +
+    : `<strong>La evolución hizo ${share >= 99 ? 'todo el' : `el ${share}% del`} trabajo:</strong> bajó de ${fmtG(g[0])} a ${fmtG(g[1])} fuera de tus rangos.` +
       (g[1] - g[2] > 0.05 ? ` El ajuste fino solo quitó los últimos ${fmtG(g[1] - g[2])}, como cuando el GPS te deja en la calle y tú te estacionas.` : '');
   document.getElementById('gaBeforeAfter').innerHTML = `<p class="ga-lesson">${lesson}</p><table class="ga-table"><thead><tr><th></th>` +
     cols.map(([h, sub]) => `<th>${h}<br><span style="font-weight:400">${sub}</span></th>`).join('') + `</tr></thead><tbody>` +
@@ -2758,8 +2974,8 @@ function optionCounts(withPortions) {
   document.querySelectorAll('.food-row').forEach(row => {
     const cb = row.querySelector('.foodCheck');
     if (!cb.checked) return;
-    const max = parseFloat(row.querySelector('.maxMult').value), whole = row.querySelector('.wholeCheck').checked;
-    const n = withPortions ? Math.max(1, PORTIONS.filter(m => m <= max && (!whole || m >= 1)).length) : 1;
+    const max = parseFloat(row.querySelector('.maxMult').value), whole = row.dataset.whole === '1';
+    const n = withPortions ? Math.max(1, PORTIONS.filter(m => m <= max && (!whole || Number.isInteger(m))).length) : 1;
     SLOTS.filter(s => s.pool === cb.dataset.group).forEach(s => { counts[s.key] += n; });
   });
   return counts;
@@ -2811,6 +3027,7 @@ function startIntro() {
 }
 function endIntro() {
   try { localStorage.setItem(INTRO_KEY, '1'); } catch (e) {}
+  track('1-intro-terminada');
   document.body.classList.remove('in-intro');
   // La primera vez, lo primero es ver la evolución con la persona de ejemplo; tus datos vienen después.
   if (!calculatedNeeds) usarEjemplo(); else go(1);
@@ -2857,6 +3074,690 @@ function init() {
 }
 
 init();
+</script>
+<script>
+// ---- Idiomas ----
+// El español es el texto original de la app. En inglés, cada frase de la pantalla se cambia
+// por su traducción completa (no palabra por palabra). Los números se conservan: en las
+// claves del diccionario cada número es "#". Si una frase no está traducida, se queda en español.
+const UNIT_WORDS_EN = { cdita: ['tsp', 'tsp'], cda: ['tbsp', 'tbsp'], rebanada: ['slice', 'slices'], lonja: ['slice', 'slices'], scoop: ['scoop', 'scoops'] };
+const FOOD_EN = {
+  'Avena cocida': 'Cooked oatmeal', 'Avena con yogur griego y fruta': 'Oats with Greek yogurt and fruit', 'Pan integral con huevo': 'Whole-wheat toast with egg',
+  'Tostadas con aguacate y huevo': 'Avocado toast with egg', 'Huevos revueltos (2 huevos + 2 claras)': 'Scrambled eggs (2 eggs + 2 whites)',
+  'Tortilla de claras con espinaca': 'Egg-white omelet with spinach', 'Panqueques de avena y claras': 'Oat and egg-white pancakes', 'Yogur griego con granola': 'Greek yogurt with granola',
+  'Sándwich de pavo y queso': 'Turkey and cheese sandwich', 'Leche descremada': 'Skim milk', 'Leche descremada deslactosada': 'Lactose-free skim milk', 'Leche de soya': 'Soy milk',
+  'Yogur bebible / kéfir': 'Drinkable yogurt / kefir', 'Batido de proteína whey': 'Whey protein shake', 'Batido de proteína vegetal': 'Plant protein shake',
+  'Smoothie de yogur griego y fruta': 'Greek yogurt fruit smoothie', 'Huevo duro': 'Hard-boiled egg', 'Claras de huevo': 'Egg whites', 'Yogur griego': 'Greek yogurt',
+  'Queso cottage': 'Cottage cheese', 'Queso en tiras (light)': 'String cheese (light)', 'Jamón de pavo': 'Turkey ham', 'Atún en lata (en agua)': 'Canned tuna (in water)',
+  'Sardinas en lata (escurridas)': 'Canned sardines (drained)', 'Almendras': 'Almonds', 'Hummus con zanahoria': 'Hummus with carrot',
+  'Pan integral con mantequilla de maní': 'Whole-wheat toast with peanut butter', 'Pechuga de pollo': 'Chicken breast', 'Muslo de pollo sin piel': 'Skinless chicken thigh',
+  'Pechuga de pavo': 'Turkey breast', 'Carne molida de res magra': 'Lean ground beef', 'Bistec de res (corte magro)': 'Beef steak (lean cut)', 'Lomo de cerdo': 'Pork loin',
+  'Salmón': 'Salmon', 'Atún': 'Tuna', 'Tilapia': 'Tilapia', 'Pescado blanco (merluza, bacalao)': 'White fish (hake, cod)', 'Camarones': 'Shrimp', 'Tofu firme': 'Firm tofu',
+  'Lentejas cocidas': 'Cooked lentils', 'Garbanzos cocidos': 'Cooked chickpeas', 'Sopa de lentejas': 'Lentil soup', 'Sopa de pollo con vegetales': 'Chicken vegetable soup',
+  'Tortilla de vegetales (2 huevos)': 'Vegetable omelet (2 eggs)', 'Ensalada de pollo': 'Chicken salad', 'Ensalada de atún': 'Tuna salad',
+  'Salteado de res con vegetales': 'Beef and vegetable stir-fry', 'Chili de frijoles con carne': 'Bean and beef chili', 'Crema de calabaza con queso': 'Squash soup with cheese',
+  'Yogur griego con miel': 'Greek yogurt with honey', 'Queso cottage con fruta': 'Cottage cheese with fruit', 'Manzana con mantequilla de maní': 'Apple with peanut butter',
+  'Chocolate oscuro (70%)': 'Dark chocolate (70%)', 'Pudín de proteína': 'Protein pudding', 'Helado proteico': 'Protein ice cream', 'Barra de proteína': 'Protein bar',
+  'Muffin proteico': 'Protein muffin', 'Banana (guineo)': 'Banana', 'Manzana': 'Apple', 'Naranja': 'Orange', 'Pera': 'Pear', 'Uvas': 'Grapes', 'Fresas': 'Strawberries',
+  'Arándanos': 'Blueberries', 'Kiwi': 'Kiwi', 'Durazno (melocotón)': 'Peach', 'Piña': 'Pineapple', 'Mango': 'Mango', 'Papaya (lechosa)': 'Papaya', 'Melón': 'Melon',
+  'Sandía': 'Watermelon', 'Arroz blanco': 'White rice', 'Arroz integral': 'Brown rice', 'Pasta cocida': 'Cooked pasta', 'Quinoa cocida': 'Cooked quinoa',
+  'Papa hervida': 'Boiled potato', 'Batata (camote) hervida': 'Boiled sweet potato', 'Maíz dulce (elote)': 'Sweet corn', 'Frijoles cocidos (habichuelas)': 'Cooked beans',
+  'Pan integral': 'Whole-wheat bread', 'Ensalada verde (lechuga, tomate, pepino)': 'Green salad (lettuce, tomato, cucumber)', 'Brócoli al vapor': 'Steamed broccoli',
+  'Coliflor al vapor': 'Steamed cauliflower', 'Zanahoria cocida': 'Cooked carrot', 'Judías verdes (vainitas)': 'Green beans', 'Calabacín (zucchini) al vapor': 'Steamed zucchini',
+  'Espinacas salteadas': 'Sautéed spinach', 'Champiñones salteados': 'Sautéed mushrooms', 'Remolacha': 'Beets', 'Vegetales salteados': 'Sautéed vegetables', 'Aguacate': 'Avocado',
+};
+const ING_EN = {
+  'Aceite': 'oil', 'Aderezo ligero': 'light dressing', 'Aguacate': 'avocado', 'Aguacates': 'avocados', 'Arroz blanco (crudo)': 'white rice (uncooked)',
+  'Arroz integral (crudo)': 'brown rice (uncooked)', 'Atún en lata (en agua)': 'canned tuna (in water)', 'Avena en hojuelas': 'rolled oats', 'Banana': 'banana', 'Bananas': 'bananas',
+  'Batata (camote)': 'sweet potato', 'Batatas (camotes)': 'sweet potatoes', 'Bistec de res (corte magro)': 'beef steak (lean cut)', 'Calabaza (auyama)': 'squash (pumpkin)',
+  'Carne molida de res magra': 'lean ground beef', 'Champiñones': 'mushrooms', 'Clara de huevo': 'egg white', 'Claras de huevo': 'egg whites', 'Durazno': 'peach', 'Duraznos': 'peaches',
+  'Espinaca': 'spinach', 'Frijoles cocidos': 'cooked beans', 'Fruta (banana o fresas)': 'fruit (banana or strawberries)', 'Granola': 'granola', 'Huevo': 'egg', 'Huevos': 'eggs',
+  'Hummus': 'hummus', 'Jamón de pavo': 'turkey ham', 'Kiwi': 'kiwi', 'Kiwis': 'kiwis', 'Lechuga': 'lettuce', 'Lentejas secas': 'dry lentils', 'Mantequilla de maní': 'peanut butter',
+  'Manzana': 'apple', 'Manzanas': 'apples', 'Mayonesa light': 'light mayonnaise', 'Miel': 'honey', 'Naranja': 'orange', 'Naranjas': 'oranges', 'Pan integral': 'whole-wheat bread',
+  'Papa': 'potato', 'Papas': 'potatoes', 'Pasta (cruda)': 'pasta (uncooked)', 'Pechuga de pollo': 'chicken breast', 'Pepino': 'cucumber', 'Pera': 'pear', 'Peras': 'pears',
+  'Proteína vegetal': 'plant protein', 'Proteína whey': 'whey protein', 'Queso': 'cheese', 'Queso cottage': 'cottage cheese', 'Queso fresco': 'fresh cheese', 'Quinoa (cruda)': 'quinoa (uncooked)',
+  'Salsa de tomate': 'tomato sauce', 'Tomate': 'tomato', 'Vegetales de ensalada': 'salad vegetables', 'Vegetales mixtos': 'mixed vegetables',
+  'Vegetales para sopa (zanahoria, cebolla, pimiento)': 'soup vegetables (carrot, onion, pepper)', 'Yogur griego': 'Greek yogurt', 'Zanahoria': 'carrot', 'Zanahorias': 'carrots',
+};
+const cap1 = t => t.charAt(0).toUpperCase() + t.slice(1);
+function ingEn(n) { return ING_EN[n] ? cap1(ING_EN[n]) : (FOOD_EN[n] || n); }
+function partTextEn(pt, q) {
+  const n = ING_EN[q > 1 && pt.pl ? pt.pl : pt.n] || ING_EN[pt.n] || pt.n;
+  if (pt.u === 'u') return `${frac(q)} ${n}`;
+  if (UNIT_WORDS_EN[pt.u]) return `${frac(q)} ${UNIT_WORDS_EN[pt.u][q > 1 ? 1 : 0]} ${n}`;
+  return `${grams(q, pt.u)} ${n}`;
+}
+
+const I18N_NUM = /\d+(?:[.,]\d+)*/g;
+const I18N_DICT = {};
+function i18nAdd(obj) { for (const [es, en] of Object.entries(obj)) I18N_DICT[es.replace(/\s+/g, ' ').trim().replace(I18N_NUM, '#')] = en; }
+i18nAdd(FOOD_EN);
+// I18N_EN: frases de la pantalla (se llena abajo)
+i18nAdd({
+  "Una semana que evoluciona · Designing Spring": "A week that evolves · Designing Spring",
+  "De la naturaleza al código": "From Nature to Code",
+  "Ver la introducción": "Watch the introduction",
+  "Saltar introducción": "Skip introduction",
+  "Mira cómo <em>evoluciona</em> tu semana de comidas": "Watch your week of meals <em>evolve</em>",
+  "Te armamos # días de comidas que se acercan a tu meta de proteína, grasa y carbohidratos, con los alimentos que tú elijas.": "We build # days of meals that get close to your protein, fat and carb goals, using the foods you choose.",
+  "Proyecto educativo: muestra el uso de un algoritmo genético para armar menús. Los alimentos, recetas y valores nutricionales son ejemplos aproximados. No reemplaza la orientación de un profesional de la salud.": "An educational project: it shows how a genetic algorithm can build meal plans. The foods, recipes and nutrition values are approximate examples. It does not replace advice from a health professional.",
+  "Creado por Ramona Santos · <a>Designing Spring</a> · #": "Created by Ramona Santos · <a>Designing Spring</a> · #",
+  "Proyecto educativo para mostrar cómo funciona un algoritmo genético. No es una herramienta de nutrición.": "An educational project that shows how a genetic algorithm works. It is not a nutrition tool.",
+  "¿Qué tiene que ver la <em>evolución</em> con tu menú de la semana?": "What does <em>evolution</em> have to do with your weekly menu?",
+  "se queda y tiene hijos": "stays and has offspring",
+  "se descarta": "is discarded",
+  "Una búsqueda de ejemplo: cada semilla es una semana probada.": "A sample search: each seed is a week we tried.",
+  "Una flor de semillas: cada semilla es una semana probada; las de afuera, más nuevas, son mejores": "A flower of seeds: each seed is a week we tried; the newer ones on the outside are better",
+  "Una flor de semanas: cada semilla es una semana probada; la flor crece hacia afuera vuelta tras vuelta": "A flower of weeks: each seed is a week we tried; the flower grows outward round after round",
+  "<strong>Vuelta # de #</strong>": "<strong>Round # of #</strong>",
+  "Vuelta # de #": "Round # of #",
+  "# semanas probadas": "# weeks tried",
+  "Descúbrelo →": "Find out →",
+  "Entre billones de menús posibles, hay uno que cumple tus metas de proteína, grasa y carbohidratos, te da variedad y respeta tus gustos. Para encontrarlo vamos a usar un truco que la naturaleza inventó hace millones de años.": "Among trillions of possible menus, there is one that meets your protein, fat and carb goals, gives you variety and respects your tastes. To find it, we'll use a trick nature invented millions of years ago.",
+  "← Atrás": "← Back",
+  "Siguiente →": "Next →",
+  "Imagina que estás armando tu menú de la semana.": "Imagine you're planning your menu for the week.",
+  "Empiezas por hoy. En tu cocina tienes estas opciones:": "You start with today. In your kitchen you have these options:",
+  "<b>Desayuno (#)</b>": "<b>Breakfast (#)</b>",
+  "<b>Almuerzo (#)</b>": "<b>Lunch (#)</b>",
+  "<b>Cena (#)</b>": "<b>Dinner (#)</b>",
+  "Avena · Huevos · Yogur con fruta": "Oatmeal · Eggs · Yogurt with fruit",
+  "Pollo con arroz · Pasta · Pescado · Lentejas · Ensalada de atún": "Chicken and rice · Pasta · Fish · Lentils · Tuna salad",
+  "Sopa · Sándwich · Ensalada · Tortilla": "Soup · Sandwich · Salad · Omelet",
+  "desayunos": "breakfasts",
+  "almuerzos": "lunches",
+  "cenas": "dinners",
+  "menús": "menus",
+  "<b>#</b>": "<b>#</b>",
+  "menús posibles <strong>solo para hoy</strong>": "possible menus <strong>just for today</strong>",
+  "Si eliges una opción para cada una de las # comidas, puedes armar hasta # menús diferentes para un solo día. Basta cambiar una opción para que sea otro menú.": "If you pick one option for each of the # meals, you can put together up to # different menus for a single day. Change just one option and it's a different menu.",
+  "Ahora imagina armar los # días combinando esos menús con tus metas y tus gustos.": "Now imagine building all # days by combining those menus with your goals and your tastes.",
+  "<b>Tus metas</b>": "<b>Your goals</b>",
+  "Que cada día te dé lo que tu cuerpo necesita: ni de más ni de menos": "Each day gives your body what it needs: not too much, not too little",
+  "<b>Variedad</b>": "<b>Variety</b>",
+  "Que no comas lo mismo todos los días": "You don't eat the same thing every day",
+  "<b>Tus gustos</b>": "<b>Your tastes</b>",
+  "Solo comidas que te gustan, sin lactosa si lo pides": "Only foods you like, lactose-free if you ask",
+  "Cada día puedes elegir cualquiera de esos # menús: repetir el de ayer o cambiarlo. Una semana es una combinación de # elecciones, así que las combinaciones posibles son:": "Each day you can pick any of those # menus: repeat yesterday's or change it. A week is a combination of # choices, so the possible combinations are:",
+  "Lun": "Mon",
+  "Mar": "Tue",
+  "Mié": "Wed",
+  "Jue": "Thu",
+  "Vie": "Fri",
+  "Sáb": "Sat",
+  "Dom": "Sun",
+  "<b># billones</b>": "<b># trillion</b>",
+  "combinaciones, y cada una es una semana distinta. Entre todas tienes que encontrar la que mejor se adapte a ti.": "combinations, and each one is a different week. Among all of them, you have to find the one that fits you best.",
+  "Y eso eligiendo un plato entero por comida. En tu plan real cada comida se arma por partes (proteína, guarnición, vegetales…) y con su porción: el número tendría <strong># cifras</strong>.": "And that's choosing one whole dish per meal. In your real plan each meal is built from parts (protein, side, vegetables…) with its portion size: the number would have <strong># digits</strong>.",
+  "Y eso eligiendo un plato entero por comida. En tu plan real cada comida se arma por partes (proteína, guarnición, vegetales…) y con su porción: el número tendría <strong># cifras</strong>: más que los átomos de todo el universo.": "And that's choosing one whole dish per meal. In your real plan each meal is built from parts (protein, side, vegetables…) with its portion size: the number would have <strong># digits</strong>, more than the atoms in the whole universe.",
+  "Nadie puede revisar todos los menús posibles.": "No one can check every possible menu.",
+  "La naturaleza tampoco lo hace. Su truco tiene tres pasos:": "Nature doesn't either. Its trick has three steps:",
+  "<b>Elegir a los mejores</b>": "<b>Pick the best</b>",
+  "<b>Mezclar</b>": "<b>Mix</b>",
+  "<b>Algo nuevo</b>": "<b>Something new</b>",
+  "<i>Naturaleza:</i> sobreviven los mejor adaptados.": "<i>Nature:</i> the best adapted survive.",
+  "<i>Tu menú:</i> se quedan los que mejor cumplen tus metas.": "<i>Your menu:</i> the ones that best meet your goals stay.",
+  "<i>Naturaleza:</i> los hijos se parecen a mamá y a papá.": "<i>Nature:</i> children look like mom and dad.",
+  "<i>Tu menú:</i> se juntan días de dos menús buenos.": "<i>Your menu:</i> days from two good menus are combined.",
+  "<i>Naturaleza:</i> a veces aparece algo distinto.": "<i>Nature:</i> sometimes something different appears.",
+  "<i>Tu menú:</i> se cambia una comida de sorpresa.": "<i>Your menu:</i> one meal is swapped by surprise.",
+  "Así funciona la <strong>evolución</strong>. En #, <strong>John Holland</strong>, profesor de la Universidad de Michigan, copió este truco para resolver problemas con computadoras y lo llamó <mark>algoritmo genético</mark>. Repite los tres pasos muchas veces: en cada vuelta, los menús se parecen más a lo que buscas.": "That's how <strong>evolution</strong> works. In #, <strong>John Holland</strong>, a professor at the University of Michigan, copied this trick to solve problems with computers and called it a <mark>genetic algorithm</mark>. It repeats the three steps many times: with each round, the menus look more like what you're looking for.",
+  "Ahora vamos a usarlo para armar <strong>tu menú de la semana</strong>: uno que respete lo que necesitas de proteína, grasa y carbohidratos (los macronutrientes) y tus preferencias.": "Now we'll use it to build <strong>your menu for the week</strong>: one that respects your protein, fat and carb needs (the macronutrients) and your preferences.",
+  "¿Se usa en la vida real?": "Is it used in real life?",
+  "Sí, casi siempre junto con otros métodos: para armar horarios de clases, planear rutas de reparto y diseñar piezas. La NASA usó algoritmos de esta familia para diseñar una antena que viajó al espacio en #.": "Yes, usually alongside other methods: to build class schedules, plan delivery routes and design parts. NASA used algorithms from this family to design an antenna that flew to space in #.",
+  "<b>Fuentes</b> <a>John Holland y su libro de # (Communications of the ACM)</a> <a>Horarios: algoritmo genético para el horario de una universidad (Universidad de Colombo, #)</a> <a>Rutas de reparto: búsqueda genética híbrida, de los mejores métodos actuales (Vidal, #)</a> <a>La antena de la NASA para la misión ST# (Hornby y otros, #)</a>": "<b>Sources</b> <a>John Holland and his # book (Communications of the ACM)</a> <a>Schedules: a genetic algorithm for a university timetable (University of Colombo, #)</a> <a>Delivery routes: hybrid genetic search, among the best current methods (Vidal, #)</a> <a>NASA's antenna for the ST# mission (Hornby et al., #)</a>",
+  "Verla evolucionar →": "Watch it evolve →",
+  "Y repetirlo # veces. Eso es un algoritmo genético.": "And repeat it # times. That's a genetic algorithm.",
+  "¿Qué está pasando? Un algoritmo genético": "What's happening? A genetic algorithm",
+  "En la naturaleza": "In nature",
+  "En tu semana": "In your week",
+  "Muchos seres vivos distintos": "Many different living things",
+  "Muchas semanas de comida distintas": "Many different weeks of meals",
+  "Sobreviven los que mejor se adaptan": "The best adapted survive",
+  "Se quedan las semanas que más se acercan a lo que necesitas": "The weeks closest to what you need stay",
+  "Los hijos heredan de sus padres": "Children inherit from their parents",
+  "Las semanas nuevas mezclan días de dos semanas buenas": "New weeks mix days from two good weeks",
+  "A veces nace algo distinto (mutación)": "Sometimes something different is born (mutation)",
+  "Cambiamos una comida de sorpresa": "We swap one meal by surprise",
+  "Generación tras generación, la especie mejora": "Generation after generation, the species improves",
+  "Vuelta tras vuelta, tu semana mejora (eso es lo que ves en la gráfica)": "Round after round, your week improves (that's what you see in the chart)",
+  "Sus genes": "Its genes",
+  "Pasos": "Steps",
+  "Paso #": "Step #",
+  "Tus datos": "Your data",
+  "Tus alimentos": "Your foods",
+  "Tu semana": "Your week",
+  "Armando": "Building",
+  "Tu plan": "Your plan",
+  "Tus datos y objetivo": "Your data and goal",
+  "Con esto calculamos cuánto necesitas comer al día. Cuando completes todo, aparece tu meta.": "We use this to calculate how much you need to eat each day. Once you fill everything in, your goal appears.",
+  "<strong>Esto es un experimento.</strong> Usamos tu información solo para mostrar cómo un algoritmo genético arma un menú. No es una recomendación nutricional ni reemplaza a un profesional de la salud.": "<strong>This is an experiment.</strong> We use your information only to show how a genetic algorithm builds a menu. It is not nutrition advice and does not replace a health professional.",
+  "Peso (lb)": "Weight (lb)",
+  "Estatura (pies y pulgadas)": "Height (feet and inches)",
+  "pies": "ft",
+  "pulg.": "in",
+  "Pies": "Feet",
+  "Pulgadas": "Inches",
+  "Edad": "Age",
+  "Ej. #": "e.g. #",
+  "Sexo": "Sex",
+  "Actividad": "Activity",
+  "Objetivo": "Goal",
+  "Elige…": "Choose…",
+  "Femenino": "Female",
+  "Masculino": "Male",
+  "Sedentaria (poco o nada de ejercicio)": "Sedentary (little or no exercise)",
+  "Ligera (#–# días/semana)": "Light (#–# days/week)",
+  "Moderada (#–# días/semana)": "Moderate (#–# days/week)",
+  "Activa (#–# días/semana)": "Active (#–# days/week)",
+  "Muy activa (intenso o trabajo físico)": "Very active (intense training or physical work)",
+  "Bajar de peso": "Lose weight",
+  "Mantener peso": "Maintain weight",
+  "Subir músculo": "Build muscle",
+  "(≈ # kg)": "(≈ # kg)",
+  "(≈ -# kg)": "(≈ -# kg)",
+  "(≈ # cm)": "(≈ # cm)",
+  "Completa peso, estatura y edad para calcular tu meta.": "Fill in weight, height and age to calculate your goal.",
+  "Completa tus datos para seguir.": "Fill in your data to continue.",
+  "Para menores de # años estas fórmulas no aplican.": "These formulas don't apply to people under #.",
+  "Ver la demostración con la persona de ejemplo": "See the demo with the sample person",
+  "Necesitas unas <strong># kcal al día</strong> para bajar de peso.": "You need about <strong># kcal a day</strong> to lose weight.",
+  "Necesitas unas <strong># kcal al día</strong> para mantener tu peso.": "You need about <strong># kcal a day</strong> to maintain your weight.",
+  "Necesitas unas <strong># kcal al día</strong> para subir músculo.": "You need about <strong># kcal a day</strong> to build muscle.",
+  "Gastas ~# kcal al día (en reposo #). Proteína: # g por kg (≈ # g por libra), automático.": "You burn ~# kcal a day (# at rest). Protein: # g per kg (≈ # g per pound), automatic.",
+  "<strong>Proteína: # g</strong> al día": "<strong>Protein: # g</strong> a day",
+  "<strong>Grasa: # g</strong> al día": "<strong>Fat: # g</strong> a day",
+  "<strong>Carbohidratos: # g</strong> al día": "<strong>Carbs: # g</strong> a day",
+  "meta # g · rango #–# g": "goal # g · range #–# g",
+  "rango #–# g · #% de calorías": "range #–# g · #% of calories",
+  "Los # kcal de recorte salen de: grasa -# g y carbohidratos -# g. La proteína no cambia.": "The # kcal cut comes from: fat -# g and carbs -# g. Protein stays the same.",
+  "Los # kcal de aumento salen de: grasa +# g y carbohidratos +# g. La proteína no cambia.": "The # kcal increase comes from: fat +# g and carbs +# g. Protein stays the same.",
+  "La grasa llegó a su piso (#% de las calorías); el resto del recorte salió de los carbohidratos.": "Fat reached its floor (#% of calories); the rest of the cut came from carbs.",
+  "Subir músculo requiere entrenamiento de fuerza; sin él, el exceso de calorías se guarda sobre todo como grasa.": "Building muscle requires strength training; without it, extra calories are stored mostly as fat.",
+  "Es una estimación general con fórmulas estándar. No reemplaza a un nutricionista o médico, sobre todo si tienes alguna condición de salud, estás embarazada o eres menor de edad.": "This is a general estimate using standard formulas. It does not replace a dietitian or doctor, especially if you have a health condition, are pregnant or are under 18.",
+  "Ajustes avanzados (proteína, grasa y límites)": "Advanced settings (protein, fat and limits)",
+  "Ajustes avanzados": "Advanced settings",
+  "Proteína por kg de peso": "Protein per kg of body weight",
+  "Automático": "Automatic",
+  "# g/kg (mínimo)": "# g/kg (minimum)",
+  "# g/kg (entrenas fuerza)": "# g/kg (strength training)",
+  "# g/kg (intenso)": "# g/kg (intense)",
+  "# g/kg": "# g/kg",
+  "Grasa (% de calorías)": "Fat (% of calories)",
+  "#% (mínimo)": "#% (minimum)",
+  "#% (habitual)": "#% (typical)",
+  "#% (máximo)": "#% (maximum)",
+  "Al bajar o subir calorías…": "When cutting or adding calories…",
+  "Repartido": "Split evenly",
+  "Cambia más la grasa": "Change fat more",
+  "Cambia más los carbohidratos": "Change carbs more",
+  "\"Automático\" ajusta la proteína a tu actividad y objetivo. Con las mismas calorías, bajar la grasa sube los carbohidratos (y al revés); la grasa no baja de #% porque el cuerpo la necesita. Al bajar de peso, recortar grasa o carbohidratos da resultados parecidos.": "\"Automatic\" adjusts protein to your activity and goal. With the same calories, lowering fat raises carbs (and vice versa); fat doesn't go below #% because your body needs it. When losing weight, cutting fat or carbs gives similar results.",
+  "Límites por día": "Daily limits",
+  "Proteína mínima (g)": "Minimum protein (g)",
+  "Proteína máxima (g)": "Maximum protein (g)",
+  "Grasa mínima (g)": "Minimum fat (g)",
+  "Grasa máxima (g)": "Maximum fat (g)",
+  "Carbohidratos mínimos (g)": "Minimum carbs (g)",
+  "Carbohidratos máximos (g)": "Maximum carbs (g)",
+  "Se llenan solos con el cálculo de arriba (y se vuelven a llenar si cambias tus datos). Deja vacío lo que no quieras limitar.": "These fill in automatically from the calculation above (and refill if you change your data). Leave empty anything you don't want to limit.",
+  "Cómo se calcula y fuentes": "How it's calculated, and sources",
+  "<strong>Metabolismo basal</strong> (calorías en reposo): ecuación de Mifflin-St Jeor. <a>Mifflin et al., #, Am J Clin Nutr</a>": "<strong>Basal metabolism</strong> (calories at rest): the Mifflin-St Jeor equation. <a>Mifflin et al., #, Am J Clin Nutr</a>",
+  "<strong>Gasto diario</strong>: metabolismo basal × factor de actividad (# sedentario a # muy activo). Son multiplicadores de uso común, una aproximación.": "<strong>Daily energy use</strong>: basal metabolism × activity factor (# sedentary to # very active). These are common multipliers, an approximation.",
+  "<strong>Calorías objetivo</strong>: −# kcal para bajar de peso, +# para subir músculo. Regla práctica; el resultado real varía de persona a persona.": "<strong>Target calories</strong>: −# kcal to lose weight, +# to build muscle. A rule of thumb; real results vary from person to person.",
+  "<strong>Proteína</strong> (g por kg de peso):": "<strong>Protein</strong> (g per kg of body weight):",
+  "# g/kg es el mínimo recomendado para adultos. <a>National Academies, Dietary Reference Intakes, #</a>": "# g/kg is the recommended minimum for adults. <a>National Academies, Dietary Reference Intakes, #</a>",
+  "#–# g/kg para quien hace ejercicio. <a>ISSN, Jäger et al., #</a>": "#–# g/kg for people who exercise. <a>ISSN, Jäger et al., #</a>",
+  "#–# g/kg al bajar de peso ayuda a conservar músculo y controlar el apetito. <a>Leidy et al., #, Am J Clin Nutr</a>": "#–# g/kg while losing weight helps preserve muscle and control appetite. <a>Leidy et al., #, Am J Clin Nutr</a>",
+  "Con entrenamiento de fuerza, el beneficio se estanca cerca de # g/kg (hasta #). <a>Morton et al., #, Br J Sports Med</a>": "With strength training, the benefit levels off around # g/kg (up to #). <a>Morton et al., #, Br J Sports Med</a>",
+  "\"Automático\" elige: sedentario # (# es el mínimo para no tener deficiencia, no la cantidad ideal) · ligero # (# si bajas) · moderado # (# si bajas) · activo o muy activo # (# si bajas). Si quieres subir músculo, al menos #.": "\"Automatic\" picks: sedentary # (# is the minimum to avoid deficiency, not the ideal amount) · light # (# if losing) · moderate # (# if losing) · active or very active # (# if losing). If you want to build muscle, at least #.",
+  "<strong>Grasa</strong>: el % que elijas (#% por defecto), siempre entre #% y #%. <a>National Academies, # (AMDR)</a>": "<strong>Fat</strong>: the % you choose (#% by default), always between #% and #%. <a>National Academies, # (AMDR)</a>",
+  "<strong>Carbohidratos</strong>: las calorías que quedan, nunca menos de # g/día. <a>National Academies, #</a>. El rango general es #–#% de las calorías; con proteína alta suele quedar algo por debajo.": "<strong>Carbs</strong>: the remaining calories, never less than # g/day. <a>National Academies, #</a>. The general range is #–#% of calories; with high protein it usually ends up a bit lower.",
+  "<strong>De dónde sale el recorte</strong>: bajar grasa o carbohidratos dio una pérdida de peso parecida a # meses. <a>DIETFITS, Gardner et al., #, JAMA</a>": "<strong>Where the cut comes from</strong>: cutting fat or carbs led to similar weight loss at # months. <a>DIETFITS, Gardner et al., #, JAMA</a>",
+  "<strong>Rangos</strong> (mínimo y máximo): proteína de tu objetivo a +#% (o +# g si eso es mayor, porque # g/kg es un mínimo, no un tope); grasa y carbohidratos ±#% alrededor del objetivo, respetando los pisos y techos de arriba. Esto es una decisión de diseño de esta app, no una guía.": "<strong>Ranges</strong> (minimum and maximum): protein from your goal to +#% (or +# g if that's more, because # g/kg is a minimum, not a cap); fat and carbs ±#% around the goal, respecting the floors and ceilings above. This is a design decision for this app, not a guideline.",
+  "¿Quieres ver de nuevo cómo funciona?": "Want to see how it works again?",
+  "Ver la demostración otra vez": "Watch the demo again",
+  "Siguiente: tus alimentos →": "Next: your foods →",
+  "Elige qué comidas quieres y cómo prefieres tu semana.": "Choose which meals you want and how you'd like your week.",
+  "¿Qué comidas quieres en tu plan?": "Which meals do you want in your plan?",
+  "Desayuno": "Breakfast",
+  "Almuerzo": "Lunch",
+  "Cena": "Dinner",
+  "Snack": "Snack",
+  "Fruta": "Fruit",
+  "Postre": "Dessert",
+  "plato + bebida": "dish + drink",
+  "proteína + guarnición + vegetales": "protein + side + vegetables",
+  "# partes por día para elegir.": "# parts to choose each day.",
+  "Elige al menos una comida.": "Choose at least one meal.",
+  "Evitar lactosa cuando se pueda": "Avoid lactose when possible",
+  "Prefiero…": "I prefer…",
+  "No me importa": "I don't mind",
+  "Más variedad": "More variety",
+  "Lista de compras corta": "Short shopping list",
+  "Equilibrio": "Balance",
+  "Cada comida y su porción": "Each meal and its portion",
+  "Todos vienen marcados: puedes seguir así y quitar después lo que no quieras desde el plan con": "Everything comes checked: you can keep it that way and later remove what you don't want from the plan with",
+  "Ver y ajustar la lista ·": "See and adjust the list ·",
+  "# de # alimentos marcados": "# of # foods checked",
+  "# de # marcados": "# of # checked",
+  "Buscar alimento…": "Search for a food…",
+  "Buscar alimento": "Search for a food",
+  "Restablecer": "Reset",
+  "Todos": "All",
+  "Ninguno": "None",
+  "Desayuno (plato)": "Breakfast (dish)",
+  "Bebida (desayuno)": "Drink (breakfast)",
+  "Proteína (almuerzo y cena)": "Protein (lunch and dinner)",
+  "Guarnición (almuerzo y cena)": "Side (lunch and dinner)",
+  "Vegetales (almuerzo y cena)": "Vegetables (lunch and dinner)",
+  "# de #": "# of #",
+  "P #": "P #",
+  "G #": "F #",
+  "C #": "C #",
+  "Lactosa": "Lactose",
+  "Máx #×": "Max #×",
+  "No partir": "Don't split",
+  "Porción máxima": "Largest portion",
+  "Nunca servir media porción": "Never serve half a portion",
+  "¿Qué significan \"Máx\" y \"No partir\"?": "What do \"Max\" and \"Don't split\" mean?",
+  "Cada porción que ves es la base. El plan puede servir media porción, #×, #× o #× de ella para acercarse a tu meta. <strong>Máx</strong> es lo más que puede servir de ese alimento: súbelo en lo que sí comerías en más cantidad (arroz, pollo…). <strong>No partir</strong> evita la media porción en lo que no tiene sentido partir (un huevo duro, una lata, un muffin).": "Each portion you see is the base. The plan can serve half a portion, #×, #× or #× of it to get closer to your goal. <strong>Max</strong> is the most it can serve of that food: raise it for things you would eat more of (rice, chicken…). <strong>Don't split</strong> avoids half portions of things it makes no sense to split (a hard-boiled egg, a can, a muffin).",
+  "<strong>¿De dónde salen estos alimentos?</strong> Es una lista de ejemplo con alimentos comunes en muchos países, armada para este experimento. Si un alimento tiene otro nombre en otros lugares, lo ponemos entre paréntesis. Los valores de proteína, grasa y carbohidratos son aproximados (tablas generales y recetas caseras típicas): sirven para mostrar cómo trabaja el algoritmo, no como guía de nutrición.": "<strong>Where do these foods come from?</strong> It's a sample list of foods common in many countries, put together for this experiment. The protein, fat and carb values are approximate (general tables and typical home recipes): they're here to show how the algorithm works, not as a nutrition guide.",
+  "Tus cambios se guardan en este navegador.": "Your changes are saved in this browser.",
+  "Siguiente: tu semana →": "Next: your week →",
+  "Precisión en proteína": "Precision on protein",
+  "Precisión en grasa": "Precision on fat",
+  "Precisión en carbohidratos": "Precision on carbs",
+  "Semanas en cada vuelta": "Weeks in each round",
+  "Vueltas de búsqueda": "Search rounds",
+  "Mutación (#–#)": "Mutation (#–#)",
+  "Armar tu semana →": "Build your week →",
+  "Armando tu semana": "Building your week",
+  "Así evoluciona una semana": "How a week evolves",
+  "Esto es una demostración con una persona de ejemplo: mujer de # años, # lb (# kg), # pies # pulgadas (# m), actividad moderada, mantener peso. Después armas la tuya.": "This is a demo with a sample person: a #-year-old woman, # lb (# kg), # ft # in (# m), moderately active, maintaining weight. Afterwards you build your own.",
+  "Probando menús… #%": "Trying menus… #%",
+  "Hacemos # semanas al azar": "We make # random weeks",
+  "Nos quedamos con las # mejores": "We keep the # best",
+  "Mezclamos sus días": "We mix their days",
+  "Cambiamos alguna comida de sorpresa": "We swap a meal by surprise",
+  "¡Y otra vez!": "And again!",
+  "Cada vuelta, la semana mejora": "Each round, the week gets better",
+  "<b>Cada semilla</b> es una semana de comidas.": "<b>Each seed</b> is a week of meals.",
+  "<b>Más dorada:</b> mejor se ajusta a ti.": "<b>More golden:</b> fits you better.",
+  "<b>Centro:</b> las primeras, casi al azar. <b>Orilla:</b> las más nuevas.": "<b>Center:</b> the first ones, almost random. <b>Edge:</b> the newest.",
+  "En cada vuelta compiten # semanas: las # mejores se quedan y se mezclan; las demás se descartan. Dibujamos # de cada # vueltas: la mejor y # al azar.": "In each round # weeks compete: the # best stay and get mixed; the rest are discarded. We draw # out of every # rounds: the best one and # random ones.",
+  "Gramos fuera de tus rangos, vuelta a vuelta": "Grams outside your ranges, round by round",
+  "Gramos que la mejor semana se sale de tus rangos, vuelta a vuelta": "Grams the best week falls outside your ranges, round by round",
+  "# g → # g": "# g → # g",
+  "Terminó: probamos # semanas; la mejor se queda a # g de tus rangos": "Done: we tried # weeks; the best one is # g away from your ranges",
+  "¡Listo! Probamos # semanas y encontramos una dentro de tus rangos": "Done! We tried # weeks and found one within your ranges",
+  "¡Listo! Probamos # semanas y encontramos una dentro de sus rangos": "Done! We tried # weeks and found one within their ranges",
+  "Terminó: probamos # semanas; la mejor se queda a # g de sus rangos": "Done: we tried # weeks; the best one is # g away from their ranges",
+  "¿Cada día está dentro de tus rangos?": "Is each day within your ranges?",
+  "dentro": "within",
+  "en rango": "in range",
+  "<strong># de # días</strong> están dentro de tus rangos de proteína, grasa y carbohidratos. La barra muestra cuántos gramos se sale cada día: mientras más corta, mejor.": "<strong># of # days</strong> are within your protein, fat and carb ranges. The bar shows how many grams each day falls outside: the shorter, the better.",
+  "<strong>Los # días</strong> están dentro de tus rangos de proteína, grasa y carbohidratos. La barra muestra cuántos gramos se sale cada día: mientras más corta, mejor. La evolución dejó la semana a # g (el final de la línea dorada); el ajuste fino, que cambia una comida a la vez, quitó el resto.": "<strong>All # days</strong> are within your protein, fat and carb ranges. The bar shows how many grams each day falls outside: the shorter, the better. Evolution left the week at # g (the end of the golden line); fine-tuning, which changes one meal at a time, removed the rest.",
+  "<strong>Los # días</strong> están dentro de tus rangos de proteína, grasa y carbohidratos. La barra muestra cuántos gramos se sale cada día: mientras más corta, mejor.": "<strong>All # days</strong> are within your protein, fat and carb ranges. The bar shows how many grams each day falls outside: the shorter, the better.",
+  "<strong>Ningún día</strong> está dentro todavía de tus rangos de proteína, grasa y carbohidratos. La barra muestra cuántos gramos se sale cada día: mientras más corta, mejor.": "<strong>No day</strong> is within your protein, fat and carb ranges yet. The bar shows how many grams each day falls outside: the shorter, the better.",
+  "<strong>Ningún día</strong> está dentro todavía de tus rangos de proteína, grasa y carbohidratos. La barra muestra cuántos gramos se sale cada día: mientras más corta, mejor. La evolución dejó la semana a # g y el ajuste fino la bajó a # g. Todavía faltan # g: con estos alimentos y porciones es muy difícil llegar.": "<strong>No day</strong> is within your protein, fat and carb ranges yet. The bar shows how many grams each day falls outside: the shorter, the better. Evolution left the week at # g and fine-tuning brought it down to # g. It's still # g away: with these foods and portions it's very hard to get there.",
+  "<strong># de # días</strong> están dentro de tus rangos de proteína, grasa y carbohidratos. La barra muestra cuántos gramos se sale cada día: mientras más corta, mejor. La evolución dejó la semana a # g y el ajuste fino la bajó a # g. Todavía faltan # g: con estos alimentos y porciones es muy difícil llegar.": "<strong># of # days</strong> are within your protein, fat and carb ranges. The bar shows how many grams each day falls outside: the shorter, the better. Evolution left the week at # g and fine-tuning brought it down to # g. It's still # g away: with these foods and portions it's very hard to get there.",
+  "Permitir porciones más grandes y volver a intentar": "Allow bigger portions and try again",
+  "Antes y después: ¿quién hizo el trabajo?": "Before and after: who did the work?",
+  "Al empezar<br></br>": "At the start<br></br>",
+  "Después de # vueltas<br></br>": "After # rounds<br></br>",
+  "Ajuste fino<br></br>": "Fine-tuning<br></br>",
+  "cambia una comida a la vez": "changes one meal at a time",
+  "<strong>La evolución hizo el #% del trabajo:</strong> bajó de # g a # g fuera de tus rangos. El ajuste fino solo quitó los últimos # g, como cuando el GPS te deja en la calle y tú te estacionas.": "<strong>Evolution did #% of the work:</strong> it went from # g to # g outside your ranges. Fine-tuning only removed the last # g, like when the GPS gets you to the street and you park the car yourself.",
+  "<strong>La evolución hizo todo el trabajo:</strong> bajó de # g a # g fuera de tus rangos. El ajuste fino solo quitó los últimos # g, como cuando el GPS te deja en la calle y tú te estacionas.": "<strong>Evolution did all the work:</strong> it went from # g to # g outside your ranges. Fine-tuning only removed the last # g, like when the GPS gets you to the street and you park the car yourself.",
+  "¿Y si eligiéramos semanas al azar?": "What if we picked weeks at random?",
+  "Le damos al azar la misma cantidad de intentos que al algoritmo y medimos cuántos gramos se sale cada semana de tus rangos. Tarda unos segundos.": "We give chance the same number of tries as the algorithm and measure how many grams each week falls outside your ranges. It takes a few seconds.",
+  "Comparar con el azar": "Compare with chance",
+  "Probar otra vez": "Try again",
+  "¿Cuántos gramos se sale la semana de tus rangos?": "How many grams does the week fall outside your ranges?",
+  "(en esta búsqueda · menos es mejor)": "(in this search · less is better)",
+  "la mejor de # semanas al azar": "the best of # random weeks",
+  "lo que logró la evolución": "what evolution achieved",
+  "Para curiosos: ¿cómo sabe cuál semana es mejor?": "For the curious: how does it know which week is better?",
+  "<strong>En gramos:</strong> tu semana se sale # g de tus rangos. Esa es la medida que ves en toda la app.": "<strong>In grams:</strong> your week falls # g outside your ranges. That's the measure you see throughout the app.",
+  "<strong>Por dentro, el algoritmo usa puntos</strong> para comparar semanas. Le da puntos a cada semana: suma por acercarse a lo que necesitas y resta si se pasa de tus límites, si repite mucho la misma comida o si la lista de compras sale larga. Tu semana: cerca de tu meta +# · comidas -# · límites # · repetir -# · lista de compras -# = <strong># puntos</strong>. Pueden salir negativos: lo que importa no es el número, sino cuál semana tiene más.": "<strong>Inside, the algorithm uses points</strong> to compare weeks. Each week gets points: it gains for getting close to what you need and loses if it goes over your limits, repeats the same meal a lot or makes the shopping list long. Your week: close to your goal +# · meals -# · limits # · repeats -# · shopping list -# = <strong># points</strong>. They can be negative: what matters isn't the number, but which week has more.",
+  "<strong>Por dentro, el algoritmo usa puntos</strong> para comparar semanas. Le da puntos a cada semana: suma por acercarse a lo que necesitas y resta si se pasa de tus límites, si repite mucho la misma comida o si la lista de compras sale larga. Tu semana: cerca de tu meta +# · comidas -# · límites -# · repetir -# · lista de compras -# = <strong>-# puntos</strong>. Pueden salir negativos: lo que importa no es el número, sino cuál semana tiene más.": "<strong>Inside, the algorithm uses points</strong> to compare weeks. Each week gets points: it gains for getting close to what you need and loses if it goes over your limits, repeats the same meal a lot or makes the shopping list long. Your week: close to your goal +# · meals -# · limits -# · repeats -# · shopping list -# = <strong>-# points</strong>. They can be negative: what matters isn't the number, but which week has more.",
+  "<strong>Por dentro, el algoritmo usa puntos</strong> para comparar semanas. Le da puntos a cada semana: suma por acercarse a lo que necesitas y resta si se pasa de tus límites, si repite mucho la misma comida o si la lista de compras sale larga. Tu semana: cerca de tu meta +# · comidas -# · límites # · repetir -# · lista de compras -# · cambios -# = <strong>-# puntos</strong>. Pueden salir negativos: lo que importa no es el número, sino cuál semana tiene más.": "<strong>Inside, the algorithm uses points</strong> to compare weeks. Each week gets points: it gains for getting close to what you need and loses if it goes over your limits, repeats the same meal a lot or makes the shopping list long. Your week: close to your goal +# · meals -# · limits # · repeats -# · shopping list -# · changes -# = <strong>-# points</strong>. They can be negative: what matters isn't the number, but which week has more.",
+  "El ajuste fino (cambiar una comida a la vez) sumó # puntos: la evolución encuentra la zona correcta y el ajuste fino afina.": "Fine-tuning (changing one meal at a time) added # points: evolution finds the right area and fine-tuning polishes it.",
+  "Al terminar la búsqueda, algunos días todavía se pasaban; se arreglaron con cambios pequeños.": "When the search ended, some days were still over; they were fixed with small changes.",
+  "# puntos": "# points",
+  "-# puntos": "-# points",
+  "Ahora arma la tuya →": "Now build yours →",
+  "Ver crecer otra vez": "Watch it grow again",
+  "← Ver la introducción": "← Watch the introduction",
+  "Usar tus datos →": "Use your data →",
+  "Ver tu plan →": "See your plan →",
+  "Ojo, se llega muy justo en: proteína (máximo posible #g, tu mínimo #g), grasa (máximo posible #g, tu mínimo #g), carbohidratos (máximo posible #g, tu mínimo #g). El plan va a repetir mucho los mismos alimentos.<br></br>": "Heads up, it's very tight on: protein (most possible #g, your minimum #g), fat (most possible #g, your minimum #g), carbs (most possible #g, your minimum #g). The plan will repeat the same foods a lot.<br></br>",
+  "No se puede cumplir: lo máximo de proteína que se puede juntar en un día es <strong>#g</strong> y tu mínimo es #g; lo máximo de grasa que se puede juntar en un día es <strong>#g</strong> y tu mínimo es #g; lo máximo de carbohidratos que se puede juntar en un día es <strong>#g</strong> y tu mínimo es #g. Con las porciones permitidas no alcanza.<br></br>": "This can't be met: the most protein you can get in a day is <strong>#g</strong> and your minimum is #g; the most fat you can get in a day is <strong>#g</strong> and your minimum is #g; the most carbs you can get in a day is <strong>#g</strong> and your minimum is #g. With the allowed portions it isn't enough.<br></br>",
+  "Lo que acabas de ver": "What you just saw",
+  "Había tantas semanas posibles que contarlas da un número de <strong># cifras</strong>. Nadie puede revisarlas todas. El algoritmo probó solo <strong>#</strong>, copiando cómo mejora la naturaleza:": "There were so many possible weeks that counting them gives a number with <strong># digits</strong>. No one can check them all. The algorithm tried only <strong>#</strong>, copying how nature improves:",
+  "<strong>Elegir</strong> las semanas que mejor se ajustan": "<strong>Pick</strong> the weeks that fit best",
+  "<strong>Mezclar</strong> sus días para hacer semanas nuevas": "<strong>Mix</strong> their days to make new weeks",
+  "<strong>Algo nuevo</strong>: cambiar una comida de sorpresa": "<strong>Something new</strong>: swap a meal by surprise",
+  "Gramos fuera de tus rangos (toda la semana)": "Grams outside your ranges (whole week)",
+  "Al azar": "Random",
+  "Evolución": "Evolution",
+  "Con ajuste fino": "With fine-tuning",
+  "La flor final de esta búsqueda": "The final flower of this search",
+  "Con los mismos # intentos, elegir semanas al azar se queda a # g de lo que necesitas; copiar a la naturaleza deja la semana a # g. Más abajo está la semana día por día y la lista de compras.": "With the same # tries, picking weeks at random ends up # g away from what you need; copying nature gets the week to # g. Below is the week day by day and the shopping list.",
+  "Los # días quedan dentro de tus límites de proteína, grasa y carbohidratos.": "All # days are within your protein, fat and carb limits.",
+  "Proteína al día (meta # g)": "Protein per day (goal # g)",
+  "Grasa al día (meta # g)": "Fat per day (goal # g)",
+  "Carbohidratos al día (meta # g)": "Carbs per day (goal # g)",
+  "La barra es tu promedio diario, la zona clara tu rango y la rayita vertical tu meta.": "The bar is your daily average, the light area your range and the small vertical line your goal.",
+  "~# kcal al día en promedio · # alimentos distintos": "~# kcal a day on average · # different foods",
+  "Desliza de lado para ver los # días →": "Swipe sideways to see all # days →",
+  "Toca": "Tap",
+  "en lo que no quieras (se quita y el plan se ajusta) y": "on what you don't want (it's removed and the plan adjusts) and",
+  "en lo que quieras conservar.": "on what you want to keep.",
+  "Lunes": "Monday",
+  "Martes": "Tuesday",
+  "Miércoles": "Wednesday",
+  "Jueves": "Thursday",
+  "Viernes": "Friday",
+  "Sábado": "Saturday",
+  "Domingo": "Sunday",
+  "Plato": "Dish",
+  "Bebida": "Drink",
+  "Proteína": "Protein",
+  "Guarnición": "Side",
+  "Vegetales": "Vegetables",
+  "Grasa": "Fat",
+  "Carbohidratos": "Carbs",
+  "P # g": "P # g",
+  "G # g": "F # g",
+  "C # g": "C # g",
+  "# kcal": "# kcal",
+  "# g": "# g",
+  "# ml": "# ml",
+  "# kg": "# kg",
+  "media porción": "half portion",
+  "#× porción": "#× portion",
+  "Fijar esta comida": "Pin this meal",
+  "Soltar": "Unpin",
+  "No quiero este alimento": "I don't want this food",
+  "Deshacer": "Undo",
+  "# comida fijada ·": "# meal pinned ·",
+  "# comidas fijadas ·": "# meals pinned ·",
+  "Soltar todas": "Unpin all",
+  "Último cambio: quitaste un alimento y la semana se ajustó cambiando solo lo necesario, sin volver a buscar desde cero.": "Last change: you removed a food and the week adjusted by changing only what was needed, without searching again from scratch.",
+  "Lista de compras (# ingredientes) · copiar, descargar o imprimir": "Shopping list (# ingredients) · copy, download or print",
+  "Lista de compras (# ingredientes)": "Shopping list (# ingredients)",
+  "Copiar lista": "Copy list",
+  "¡Copiada!": "Copied!",
+  "Descargar PDF": "Download PDF",
+  "Preparando…": "Preparing…",
+  "Sin conexión: usa Imprimir": "Offline: use Print",
+  "Imprimir": "Print",
+  "Lista de compras de la semana": "Shopping list for the week",
+  "Los platos están desglosados en sus ingredientes. Cantidades aproximadas.": "Dishes are broken down into their ingredients. Approximate amounts.",
+  "¿Qué te pareció?": "What did you think?",
+  "Me encantaría leerte. ¿Podrías explicar con tus palabras qué hizo el algoritmo? ¿Algo te sorprendió o lo cambiarías? Cuéntamelo en los comentarios del artículo.": "I'd love to hear from you. Could you explain in your own words what the algorithm did? Did anything surprise you, or would you change something? Tell me in the article's comments.",
+  "<a>Comentar en Designing Spring →</a>": "<a>Comment on Designing Spring →</a>",
+  "Comentar en Designing Spring →": "Comment on Designing Spring →",
+  "← Ver cómo evolucionó tu semana": "← See how your week evolved",
+  "Generar otro plan": "Generate another plan",
+  "poca proteína, poca grasa, pocos carbohidratos": "low protein, low fat, low carbs",
+  "La semana de ejemplo": "The sample week",
+  "Fuentes": "Sources",
+  "Algo": "Some",
+  "Mucho": "A lot",
+  "×": "×",
+  "Tu plan semanal de comidas": "Your weekly meal plan",
+  "Armado con un algoritmo genético": "Built with a genetic algorithm",
+  "meta": "goal",
+  "Promedio al día": "Daily average",
+  "Calorías": "Calories",
+  "Proyecto educativo: muestra el uso de un algoritmo genético para armar menús. Valores aproximados; no reemplaza a un profesional de la salud.": "An educational project: it shows how a genetic algorithm can build meal plans. Approximate values; it does not replace a health professional.",
+  "# taza (~#g)": "# cup (~#g)",
+  "# tazas (~#g)": "# cups (~#g)",
+  "#/# taza (~#g)": "#/# cup (~#g)",
+  "# taza cocido (~#g)": "# cup cooked (~#g)",
+  "# taza cocida (~#g, # cdita de aceite)": "# cup cooked (~#g, # tsp oil)",
+  "# taza (~#g, # cdita de aceite)": "# cup (~#g, # tsp oil)",
+  "# mediana (~#g)": "# medium (~#g)",
+  "# mediano (~#g)": "# medium (~#g)",
+  "#/# mediano (~#g)": "#/# medium (~#g)",
+  "# lata (~#g)": "# can (~#g)",
+  "# lata escurrida (~#g)": "# can, drained (~#g)",
+  "# puñado (~#g)": "# handful (~#g)",
+  "# plato (~#g)": "# plate (~#g)",
+  "# plato (~#g, #g de atún)": "# plate (~#g, #g tuna)",
+  "# plato (~#g, #g de pollo)": "# plate (~#g, #g chicken)",
+  "# unidad (#g)": "# piece (#g)",
+  "# unidad (~#g)": "# piece (~#g)",
+  "# unidades (~#g)": "# pieces (~#g)",
+  "# unidad + #g": "# piece + #g",
+  "# tortilla (~#g)": "# omelet (~#g)",
+  "# rebanadas (~#g)": "# slices (~#g)",
+  "# rebanadas + # huevo": "# slices + # egg",
+  "# rebanada + # cda": "# slice + # tbsp",
+  "# rebanadas + #/# de aguacate + # huevo": "# slices + #/# avocado + # egg",
+  "# rebanadas + #g de pavo + # lonja de queso": "# slices + #g turkey + # slice of cheese",
+  "# claras + # huevo": "# whites + # egg",
+  "#g (~# claras)": "#g (~# whites)",
+  "# scoop (#g) + agua": "# scoop (#g) + water",
+  "#g + # cdita de miel": "#g + # tsp honey",
+  "#g + #/# taza de fruta": "#g + #/# cup fruit",
+  "#g + #g de granola": "#g + #g granola",
+  "#g de avena + #g de yogur + fruta": "#g oats + #g yogurt + fruit",
+  "#g de hummus + # zanahoria": "#g hummus + # carrot",
+  "#g": "#g",
+  "#ml": "#ml",
+  "poca proteína": "low protein",
+  "mucha proteína": "high protein",
+  "poca grasa": "low fat",
+  "mucha grasa": "high fat",
+  "pocos carbohidratos": "low carbs",
+  "muchos carbohidratos": "high carbs",
+  "# g<em>#× porción</em>": "# g<em>#× portion</em>",
+  "# g<em>media porción</em>": "# g<em>half portion</em>",
+  "# ml<em>media porción</em>": "# ml<em>half portion</em>",
+  "<strong># de # días no llegan a tus límites.</strong> Con las porciones permitidas un día suma ~# kcal y tu meta es # kcal. <br></br>": "<strong># of # days don't reach your limits.</strong> With the allowed portions a day adds up to ~# kcal and your goal is # kcal. <br></br>",
+  "<strong># de # días</strong> están dentro de tus rangos de proteína, grasa y carbohidratos. La barra muestra cuántos gramos se sale cada día: mientras más corta, mejor. La evolución dejó la semana a # g (el final de la línea dorada); el ajuste fino, que cambia una comida a la vez, quitó el resto.": "<strong># of # days</strong> are within your protein, fat and carb ranges. The bar shows how many grams each day falls outside: the shorter, the better. Evolution left the week at # g (the end of the golden line); fine-tuning, which changes one meal at a time, removed the rest.",
+  "Para armar tu semana usamos un <strong>algoritmo genético</strong>: una forma de buscar que copia cómo mejora la naturaleza. No prueba todas las semanas posibles (son demasiadas), sino que hace \"evolucionar\" las mejores.": "To build your week we use a <strong>genetic algorithm</strong>: a way of searching that copies how nature improves. It doesn't try every possible week (there are too many); instead it makes the best ones \"evolve\".",
+  "Saltar": "Skip",
+  "Intro": "Intro",
+  "Cada punto es una semana de comidas. Las doradas son las que van ganando.": "Each dot is a week of meals. The golden ones are the ones winning.",
+  "Una flor de puntos: cada punto es una semana de comidas; las doradas son las que van ganando": "A flower of dots: each dot is a week of meals; the golden ones are the ones winning",
+  "Hay billones de formas de armar tu semana de comidas. Nadie puede probarlas todas, pero la naturaleza encontró un atajo hace millones de años.": "There are trillions of ways to plan your week of meals. No one can try them all, but nature found a shortcut millions of years ago.",
+  "Esta flor es ese atajo en acción: cada punto es una semana de comidas.": "This flower is that shortcut in action: each dot is a week of meals.",
+  "Un experimento interactivo · unos # minutos": "An interactive experiment · about # minutes",
+  "Cada punto es una semana que probamos. Empieza en el centro y crece hacia afuera: las doradas son buenas y se quedan, las vacías no sirven y se descartan.": "Each dot is a week we tried. It starts in the center and grows outward: the golden ones are good and stay, the empty ones don't work and are discarded.",
+  "Una flor de puntos que crece del centro hacia afuera: cada punto es una semana probada; las doradas se quedan y las vacías se descartan": "A flower of dots growing from the center outward: each dot is a week we tried; the golden ones stay and the empty ones are discarded",
+  "Ni la naturaleza revisa todas las opciones: usa un truco de <em>tres pasos</em>.": "Not even nature checks every option: it uses a <em>three-step</em> trick.",
+  "Qué tan cerca está de tus rangos, vuelta a vuelta": "How close it is to your ranges, round by round",
+  "(arriba = dentro)": "(top = within)",
+  "<strong>#% → #%</strong>": "<strong>#% → #%</strong>",
+  "# g → # g fuera": "# g → # g outside",
+  "Qué tan cerca está la mejor semana de tus rangos, vuelta a vuelta; la línea punteada de arriba es estar dentro": "How close the best week is to your ranges, round by round; the dotted line at the top means within",
+  "# de # días dentro": "# of # days within",
+  "Barra llena y verde: el día está dentro de tus rangos de proteína, grasa y carbohidratos.": "Full green bar: the day is within your protein, fat and carb ranges.",
+  "La evolución dejó la semana a # g; el ajuste fino, que cambia una comida a la vez, quitó el resto.": "Evolution left the week at # g; fine-tuning, which changes one meal at a time, removed the rest.",
+  "La evolución dejó la semana a # g y el ajuste fino la bajó a # g. Todavía faltan # g: con estos alimentos y porciones es muy difícil llegar.": "Evolution left the week at # g and fine-tuning brought it down to # g. It's still # g away: with these foods and portions it's very hard to get there.",
+  "# g fuera": "# g outside",
+  "½ porción": "½ portion",
+  "# porción": "# portion",
+  "#½ porciones": "#½ portions",
+  "# porciones": "# portions",
+  "¿Qué significan las porciones y \"No partir\"?": "What do the portions and \"Don't split\" mean?",
+  "Cada porción que ves es la base. Para acercarse a tu meta, el plan puede servir media porción, #, #½ o # porciones. La <strong>porción</strong> que eliges en cada alimento es lo más que puede servir de él: súbela en lo que sí comerías en más cantidad (arroz, pollo…). Lo que no tiene sentido partir (un huevo duro, una lata, un muffin) siempre se sirve entero.": "Each portion you see is the base. To get closer to your goal, the plan can serve half a portion, #, #½ or # portions. The <strong>portion</strong> you choose for each food is the most it can serve of it: raise it for things you would eat more of (rice, chicken…). Things it makes no sense to split (a hard-boiled egg, a can, a muffin) are always served whole.",
+  "el peso (entre # y # lb)": "the weight (between # and # lb)",
+  "la estatura (entre # y # pies)": "the height (between # and # ft)",
+  "las pulgadas (de # a #)": "the inches (from # to #)",
+  "la edad (hasta # años)": "the age (up to # years)",
+  "Los carbohidratos llegaron a su piso (# g); el resto del recorte salió de la grasa.": "Carbs reached their floor (# g); the rest of the cut came from fat.",
+  "Con esta proteína, los pisos de grasa y carbohidratos no caben en tus calorías: el total queda por encima del objetivo. Prueba una proteína por kg más baja o un recorte menor.": "With this protein, the fat and carb floors don't fit in your calories: the total ends up above the goal. Try a lower protein per kg or a smaller cut.",
+  "Tu objetivo queda por debajo de # kcal, un valor de referencia común como mínimo sin supervisión. Conviene consultarlo con un profesional.": "Your goal is below # kcal, a common reference minimum without supervision. It's a good idea to check with a professional.",
+  "Elige al menos una comida en el paso # (Tu semana).": "Choose at least one meal in step # (Your week).",
+  "¿Cómo funcionan las porciones?": "How do portions work?",
+  "¿Cuánto necesita tu <em>cuerpo</em>?": "How much does your <em>body</em> need?",
+  "Elige lo que te gusta <em>comer</em>": "Choose what you like to <em>eat</em>",
+  "Diseña cómo quieres <em>tu semana</em>": "Design how you want <em>your week</em>",
+  "Mira cómo <em>evoluciona</em> tu semana": "Watch your week <em>evolve</em>",
+  "Mira cómo <em>evoluciona</em> una semana": "Watch a week <em>evolve</em>",
+  "Tu semana, <em>lista</em>": "Your week, <em>ready</em>",
+  "La semana de ejemplo, <em>lista</em>": "The sample week, <em>ready</em>",
+  "Descargar tu plan (PDF)": "Download your plan (PDF)",
+  "Cómo se armó tu semana": "How your week was built",
+  "Un algoritmo genético eligió las mejores semanas, mezcló sus días y cambió comidas de sorpresa, # veces.": "A genetic algorithm picked the best weeks, mixed their days and swapped meals by surprise, # times.",
+  "semanas probadas": "weeks tried",
+  "días dentro de tus rangos": "days within your ranges",
+  "fuera de tus rangos": "outside your ranges",
+  "al azar": "random",
+  "Contamos visitas de forma anónima, sin cookies. Lo que escribes no sale de tu dispositivo.": "We count visits anonymously, without cookies. What you type never leaves your device.",
+});
+const i18nKnown = str => I18N_DICT[String(str).replace(/\s+/g, ' ').trim().replace(I18N_NUM, '#')] !== undefined;
+// Frases que llevan nombres de alimentos adentro
+const I18N_PATTERNS = [[/^Quitaste: (.+) ·$/, (m, list) => `Removed: ${list.split(', ').map(tx).join(', ')} ·`]];
+const I18N_ATTR_PREFIX = [['Fijar ', 'Pin '], ['Soltar ', 'Unpin '], ['Quitar ', 'Remove '], ['Porción máxima de ', 'Largest portion of '], ['No partir ', 'Don’t split ']];
+
+// Traduce una frase suelta (PDF, lista copiada, atributos). Sin traducción, la deja igual.
+function tx(str) {
+  if (LANG !== 'en' || !str) return str;
+  const nums = [], key = String(str).replace(/\s+/g, ' ').trim().replace(I18N_NUM, m => (nums.push(m), '#'));
+  let en = I18N_DICT[key];
+  if (en === undefined) {
+    const pre = I18N_ATTR_PREFIX.find(([es]) => str.startsWith(es));
+    if (pre && i18nKnown(str.slice(pre[0].length))) return pre[1] + tx(str.slice(pre[0].length));
+    const pat = I18N_PATTERNS.find(([re]) => re.test(str));
+    if (pat) return str.replace(pat[0], pat[1]);
+    if (window.__i18nMissing) window.__i18nMissing.add(key);
+    return str;
+  }
+  let i = 0; return en.replace(/#/g, () => nums[i++] ?? '#');
+}
+
+// --- Cambiar la pantalla ---
+const I18N_INLINE = new Set(['STRONG', 'EM', 'B', 'I', 'A', 'MARK', 'BR', 'SUP', 'SUB', 'CODE', 'ABBR', 'U', 'Q', 'S', 'KBD']);
+const I18N_SKIP = new Set(['SCRIPT', 'STYLE', 'TEXTAREA', 'NOSCRIPT']);
+const I18N_ATTRS = ['title', 'aria-label', 'placeholder', 'alt'];
+const XHTML = 'http://www.w3.org/1999/xhtml';
+const i18nOrig = t => (t.__en !== undefined && t.nodeValue === t.__en) ? t.__es : t.nodeValue;
+const i18nSkipped = el => el.namespaceURI !== XHTML || I18N_SKIP.has(el.tagName) || el.hasAttribute('data-no-i18n');
+const i18nIsInline = el => el.namespaceURI === XHTML && I18N_INLINE.has(el.tagName) && !el.hasAttribute('data-no-i18n');
+// Recorre un bloque (párrafo, botón, título…) con sus partes en línea (negritas, enlaces).
+// Devuelve una lista alternada: texto, etiqueta, texto, etiqueta… para alinear con la traducción.
+function i18nParts(el, out) {
+  for (const c of el.childNodes) {
+    if (c.nodeType === 3) {
+      const last = out[out.length - 1];
+      if (last && last.text) last.nodes.push(c); else out.push({ text: true, nodes: [c] });
+    } else if (c.nodeType === 1) {
+      if (i18nIsInline(c)) { const t = c.tagName.toLowerCase(); out.push({ tag: `<${t}>` }); i18nParts(c, out); out.push({ tag: `</${t}>` }); }
+      else out.push({ tag: '<*>' });
+    }
+  }
+  return out;
+}
+function i18nBlock(el) {
+  if (i18nSkipped(el) || i18nIsInline(el)) return;
+  // Cada tramo de texto entre elementos de bloque (otro párrafo, un botón, un menú) es una frase aparte.
+  let run = [];
+  for (const p of i18nParts(el, [])) {
+    if (p.tag === '<*>') { i18nRun(run); run = []; } else run.push(p);
+  }
+  i18nRun(run);
+}
+function i18nRun(raw) {
+  if (!raw.length) return;
+  // Forma pareja: texto, etiqueta, texto, etiqueta, …, texto
+  const seq = []; let expectText = true;
+  for (const p of raw) {
+    if (p.text) { seq.push(p); expectText = false; }
+    else { if (expectText) seq.push({ text: true, nodes: [] }); seq.push(p); expectText = true; }
+  }
+  if (expectText) seq.push({ text: true, nodes: [] });
+  const nums = [];
+  const esText = seq.map(p => p.text ? p.nodes.map(i18nOrig).join('') : p.tag);
+  if (LANG !== 'en' || !esText.some((t, i) => i % 2 === 0 && /[A-Za-zÁ-úñÑ]/.test(t))) return i18nRestore(null, seq);
+  const keyRaw = esText.map((t, i) => i % 2 ? t : t.replace(/\s+/g, ' ').replace(I18N_NUM, m => (nums.push(m), '#'))).join('');
+  const key = keyRaw.trim();
+  let en = I18N_DICT[key];
+  if (en === undefined && seq.length === 1) {
+    const plain = esText[0].replace(/\s+/g, ' ').trim(), t = tx(plain);
+    if (t !== plain) { en = t.replace(I18N_NUM, '#'); }
+  }
+  if (en === undefined) {
+    if (window.__i18nMissing) window.__i18nMissing.add(key);
+    return i18nRestore(null, seq);
+  }
+  let n = 0; en = en.replace(/#/g, () => nums[n++] ?? '#');
+  const lead = keyRaw.match(/^\s*/)[0], trail = keyRaw.match(/\s*$/)[0];
+  const enParts = (lead + en + trail).split(/(<\/?[a-z]+>)/);
+  for (let i = 0; i < seq.length; i += 2) {
+    const val = enParts[i] ?? '';
+    seq[i].nodes.forEach((t, j) => {
+      if (t.__en === undefined || t.nodeValue !== t.__en) t.__es = t.nodeValue;
+      const v = j === 0 ? val : '';
+      t.__en = v; if (t.nodeValue !== v) t.nodeValue = v;
+    });
+  }
+}
+function i18nRestore(el, seq) {
+  for (const p of seq) if (p.text) p.nodes.forEach(t => { if (t.__en !== undefined && t.nodeValue === t.__en) { t.nodeValue = t.__es; t.__en = undefined; } });
+}
+function i18nAttrs(el) {
+  for (const a of I18N_ATTRS) {
+    if (!el.hasAttribute(a)) continue;
+    el.__esA = el.__esA || {}; el.__enA = el.__enA || {};
+    const cur = el.getAttribute(a);
+    const es = el.__enA[a] !== undefined && cur === el.__enA[a] ? el.__esA[a] : cur;
+    el.__esA[a] = es;
+    const v = LANG === 'en' ? tx(es) : es;
+    el.__enA[a] = v; if (cur !== v) el.setAttribute(a, v);
+  }
+}
+function i18nTree(root) {
+  if (root.nodeType === 3) root = root.parentElement;
+  if (!root || root.nodeType !== 1) return;
+  let b = root; while (b && i18nIsInline(b)) b = b.parentElement;
+  if (b && !b.closest('[data-no-i18n]')) { i18nBlock(b); i18nAttrs(b); }
+  root.querySelectorAll('*').forEach(el => {
+    if (el.closest('[data-no-i18n], svg, script, style')) return;
+    i18nAttrs(el);
+    if (!i18nIsInline(el)) i18nBlock(el);
+    else { let p = el.parentElement; while (p && i18nIsInline(p)) p = p.parentElement; if (p) i18nBlock(p); }
+  });
+}
+const i18nObs = new MutationObserver(recs => {
+  const roots = new Set();
+  for (const r of recs) {
+    if (r.type === 'childList') { roots.add(r.target); r.addedNodes.forEach(n => n.nodeType === 1 && roots.add(n)); }
+    else roots.add(r.target.nodeType === 3 ? r.target.parentElement : r.target);
+  }
+  roots.forEach(n => n && n.isConnected && (n.nodeType === 1 ? i18nShallow(n) : 0));
+  roots.forEach(n => n && n.isConnected && n.nodeType === 1 && n.querySelectorAll && n.firstElementChild && i18nTree(n));
+  i18nObs.takeRecords();
+});
+function i18nShallow(el) { let b = el; while (b && i18nIsInline(b)) b = b.parentElement; if (b && !b.closest('[data-no-i18n], svg')) { i18nBlock(b); i18nAttrs(el); } }
+function applyLang() {
+  document.documentElement.lang = LANG;
+  i18nObs.disconnect();
+  i18nTree(document.body);
+  document.title = LANG === 'en' ? tx('Una semana que evoluciona · Designing Spring') : 'Una semana que evoluciona · Designing Spring';
+  const btn = document.getElementById('langBtn');
+  btn.querySelector('.lg').textContent = LANG === 'en' ? 'Español' : 'English';
+  btn.querySelector('.sh').textContent = LANG === 'en' ? 'ES' : 'EN';
+  btn.lang = LANG === 'en' ? 'es' : 'en';
+  btn.setAttribute('aria-label', LANG === 'en' ? 'Ver en español' : 'Read in English');
+  i18nObs.observe(document.body, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: I18N_ATTRS });
+}
+function toggleLang() {
+  LANG = LANG === 'en' ? 'es' : 'en';
+  track('idioma-' + LANG);
+  try { localStorage.setItem('ds.lang', LANG); } catch (e) {}
+  const u = new URL(location.href); u.searchParams.set('lang', LANG); history.replaceState(null, '', u);
+  // Lo que se arma con código en el idioma (recetas, lista de compras) se vuelve a dibujar.
+  if (typeof lastRender !== 'undefined' && lastRender && !running) renderResults(...lastRender, true);
+  applyLang();
+}
+if (new URLSearchParams(location.search).has('i18ndebug')) window.__i18nMissing = new Set();
+applyLang();
 </script>
 
 </body>

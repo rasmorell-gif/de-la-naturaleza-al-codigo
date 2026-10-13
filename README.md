@@ -7,6 +7,8 @@ Un proyecto de Ramona Santos para [Designing Spring](https://designingspring.sub
 
 - **[Mira cómo evoluciona tu semana de comidas](https://rasmorell-gif.github.io/de-la-naturaleza-al-codigo/)**: un algoritmo genético explicado armando un menú de 7 días.
 
+La app está en español e inglés (botón arriba, o `?lang=en` al final del enlace).
+
 Cada app es un solo archivo que funciona en el navegador. Los datos que escribes no salen de tu dispositivo.
 
 Proyecto educativo: no es una recomendación nutricional ni reemplaza a un profesional de la salud.
