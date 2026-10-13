@@ -5,7 +5,7 @@ Un proyecto de Ramona Santos para [Designing Spring](https://designingspring.sub
 
 ## Apps
 
-- **[Mira cómo evoluciona tu semana de comidas](semana/)**: un algoritmo genético explicado armando un menú de 7 días.
+- **[Mira cómo evoluciona tu semana de comidas](https://rasmorell-gif.github.io/de-la-naturaleza-al-codigo/)**: un algoritmo genético explicado armando un menú de 7 días.
 
 Cada app es un solo archivo que funciona en el navegador. Los datos que escribes no salen de tu dispositivo.
 
