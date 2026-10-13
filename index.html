@@ -700,7 +700,7 @@
   @media (max-width: 640px) { .recap-grid { grid-template-columns: 1fr; } .recap-flower { max-width: 220px; margin: 0 auto; } }
   .warn-fix { display: inline-block; margin-top: 10px; }
   .pday.mid .bar-fill, .recap-bars .pday.mid .bar-fill { background: var(--gold); }
-  .swipe-hint { display: none; }
+  .day-tog { display: none; }
   .bar-row .b-top { flex-wrap: wrap; gap: 0 12px; align-items: baseline; }
   .chip.f { background: var(--fat-soft); color: var(--fat); } .chip.c { background: var(--carb-soft); color: var(--carb); }
   @media (max-width: 640px) {
@@ -723,10 +723,14 @@
     .scene h2 { font-size: 23px; }
     .step-head h2, .res-head h2 { font-size: 23px; }
     .ga-pop { margin-left: -6px; margin-right: -6px; padding: 18px 12px; }
-    /* Plan: un día por pantalla, deslizando de lado */
-    .swipe-hint { display: block; margin: 0 0 8px; }
-    .days { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 88%; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -18px; padding: 0 18px 10px; scroll-padding: 0 18px; gap: 12px; }
-    .day { scroll-snap-align: start; }
+    /* Plan: los días en acordeón; el primero abierto */
+    .days { gap: 10px; }
+    .day-head { cursor: pointer; gap: 10px; }
+    .day-head .day-flag { margin-left: auto; }
+    .day-tog { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; margin: -6px -6px -6px 0; border: 0; background: none; color: var(--muted); border-radius: 8px; }
+    .day-tog svg { transition: transform .2s; }
+    .day.open .day-tog svg { transform: rotate(180deg); }
+    .day:not(.open) .meals, .day:not(.open) .day-foot { display: none; }
   }
   /* Cada comida: la etiqueta arriba, el alimento con todo el ancho, porción y botones a la derecha */
   .meals li { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "slot slot" "food amt" "food acts"; row-gap: 2px; column-gap: 12px; }
@@ -754,7 +758,7 @@
   .talk p { margin: 0 0 18px; max-width: 36em; color: var(--text); }
   .talk .btn { display: inline-block; text-decoration: none; }
   .talk .btn { padding: 12px 22px; font-size: 15px; }
-  @media (max-width: 640px) { .talk { padding: 22px 18px; } .talk .btn { display: block; text-align: center; } }
+  @media (max-width: 640px) { .talk { padding: 22px 18px; } .talk .btn { display: block; text-align: center; padding: 12px 12px; font-size: 14.5px; white-space: nowrap; } }
   .footer-note.credit { margin-top: 8px; }
   .mast .lang-btn { margin-left: 0; }
   .mast .sh { display: none; }
@@ -782,7 +786,12 @@
   .step-head h2, #gaTitle, #results .res-head h2 { display: none; }
   .step-head .hint { margin-top: 4px; }
   @media (max-width: 640px) { #resultsCard > .step-nav .right { flex-direction: column; width: 100%; } #resultsCard > .step-nav .right .btn { width: 100%; } }
-  @media print { .mast, .sample, .talk, .swipe-hint { display: none !important; } body { color: #1d2230; } .card { background: var(--card); } }
+  /* iPhone: Safari agranda la página al tocar un campo con letra menor a 16px. En pantallas táctiles, los campos van a 16px. */
+  @media (max-width: 640px), (pointer: coarse) {
+    input:not([type=checkbox]):not([type=radio]), select, textarea, .f-ctrl select { font-size: 16px !important; }
+    .f-ctrl select { min-width: 0; }
+  }
+  @media print { .day .meals, .day .day-foot { display: revert !important; } .day-tog { display: none !important; } .mast, .sample, .talk { display: none !important; } body { color: #1d2230; } .card { background: var(--card); } }
 </style>
 </head>
 <body data-step="1">
@@ -2198,6 +2207,7 @@ function dayFlags(t, limits) {
 }
 
 let shopText = '', shopList = [];
+let openDays = new Set([0]); // días abiertos en el teléfono (el lunes, al empezar)
 // Cuánto servir de un gen: "1½ porciones", "2 huevos", "150 g"
 function geneAmount(g) {
   const rec = RECETAS[g.food.name];
@@ -2265,11 +2275,14 @@ function renderResults(chromo, parts, history, limits, repaired, polishGain, noS
     if (locks.size) html += `<span>${ICON_PIN} ${locks.size} ${locks.size === 1 ? 'comida fijada' : 'comidas fijadas'} · <button data-act="unlockall">Soltar todas</button></span>`;
     html += '</div>';
   }
-  html += '<p class="hint swipe-hint">Desliza de lado para ver los 7 días →</p><div class="days">';
+  html += '<div class="days">';
   chromo.forEach((day, i) => {
-    const t = totals[i], flags = dayFlags(t, limits);
-    html += `<article class="day"><div class="day-head"><h3>${DAYS[i]}</h3>` +
-      `<span class="day-flag${flags.length ? ' bad' : ''}">${flags.length ? MARK_NO + ' ' + flags.join(', ') : MARK_OK + ' en rango'}</span></div><ul class="meals">`;
+    const t = totals[i], flags = dayFlags(t, limits), open = openDays.has(i);
+    // En el teléfono, cada día es un acordeón (el primero abierto); en la computadora, todos se ven.
+    html += `<article class="day${open ? ' open' : ''}"><div class="day-head" data-act="day" data-day="${i}"><h3>${DAYS[i]}</h3>` +
+      `<span class="day-flag${flags.length ? ' bad' : ''}">${flags.length ? MARK_NO + ' ' + flags.join(', ') : MARK_OK + ' en rango'}</span>` +
+      `<button type="button" class="day-tog" data-act="day" data-day="${i}" aria-expanded="${open}" aria-label="${open ? 'Cerrar' : 'Abrir'} ${DAYS[i]}">` +
+      `<svg viewBox="0 0 12 8" width="12" height="8" aria-hidden="true"><path d="M1 1.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div><ul class="meals">`;
     SLOTS.forEach((s, si) => {
       if (si === 0 || SLOTS[si - 1].meal !== s.meal) html += `<li class="meal-head">${s.meal}</li>`;
       const g = day[s.key], note = portionNote(g);
@@ -2326,6 +2339,16 @@ document.addEventListener('click', e => {
   const btn = e.target.closest('#results [data-act]');
   if (!btn) return;
   const act = btn.dataset.act;
+  if (act === 'day') {
+    if (!matchMedia('(max-width: 640px)').matches) return; // en la computadora todos los días están abiertos
+    const i = +btn.dataset.day, art = btn.closest('.day');
+    if (openDays.has(i)) openDays.delete(i); else openDays.add(i);
+    const open = openDays.has(i);
+    art.classList.toggle('open', open);
+    const tog = art.querySelector('.day-tog');
+    tog.setAttribute('aria-expanded', open); tog.setAttribute('aria-label', `${open ? 'Cerrar' : 'Abrir'} ${DAYS[i]}`);
+    return;
+  }
   if (act === 'lock') toggleLock(+btn.dataset.day, btn.dataset.slot);
   if (act === 'remove') excludeFood(currentPlan[+btn.dataset.day][btn.dataset.slot].food.name);
   if (act === 'undo') undoRemove();
@@ -2634,6 +2657,7 @@ async function rerun() {
 
 function generarOtro() {
   dirty = true;
+  openDays = new Set([0]);
   go(4);
 }
 
@@ -3614,7 +3638,7 @@ i18nAdd({
 const i18nKnown = str => I18N_DICT[String(str).replace(/\s+/g, ' ').trim().replace(I18N_NUM, '#')] !== undefined;
 // Frases que llevan nombres de alimentos adentro
 const I18N_PATTERNS = [[/^Quitaste: (.+) ·$/, (m, list) => `Removed: ${list.split(', ').map(tx).join(', ')} ·`]];
-const I18N_ATTR_PREFIX = [['Fijar ', 'Pin '], ['Soltar ', 'Unpin '], ['Quitar ', 'Remove '], ['Porción máxima de ', 'Largest portion of '], ['No partir ', 'Don’t split ']];
+const I18N_ATTR_PREFIX = [['Abrir ', 'Open '], ['Cerrar ', 'Close '], ['Fijar ', 'Pin '], ['Soltar ', 'Unpin '], ['Quitar ', 'Remove '], ['Porción máxima de ', 'Largest portion of '], ['No partir ', 'Don’t split ']];
 
 // Traduce una frase suelta (PDF, lista copiada, atributos). Sin traducción, la deja igual.
 function tx(str) {
